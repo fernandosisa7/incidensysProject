@@ -28,32 +28,31 @@ const LoginPage = () => {
                         {error}
                     </div>
                 ))}
-                <h1 className='text-3xl font-bold my-2'>Login</h1>
+                <h1 className='text-3xl font-bold my-2 text-center'>Ingresar</h1>
                 <form onSubmit={onSubmit}>
                     <input type="email" {...register('email', { required: true })}
                         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
                         placeholder='Email'
                     />
                     {errors.email && (
-                        <p className='text-red-500'>Email is required</p>
+                        <p className='text-red-500'>Email es obligatorio</p>
                     )}
 
                     <input type="password" {...register('password', { required: true })}
                         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
-                        placeholder='Password'
+                        placeholder='Contraseña'
                     />
                     {errors.password && (
-                        <p className='text-red-500'>Password is required</p>
+                        <p className='text-red-500'>Contraseña es obligatoria</p>
                     )}
 
-                    <button
-                        className='bg-sky-500 text-white px-4 py-2 rounded-md my-2'
-                        type='submit'
-                    >Login</button>
+                    <button className='bg-sky-500 w-full text-white px-4 py-2 rounded-md my-2' type='submit'                    >
+                        Ingresar
+                    </button>
 
                     <p className='flex gap-x-2 justify-between'>
-                        Don't have an account?
-                        <Link className='text-sky-500' to="/register">Sign up</Link>
+                        ¿No tienes una cuenta?
+                        <Link className='text-sky-500' to="/register">Registrarse</Link>
                     </p>
                 </form>
             </div>
