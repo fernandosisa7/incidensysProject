@@ -1,0 +1,3 @@
+# Ignorar las carpetas node_modules en los proyectos
+incidensysFront/node_modules/
+incidensysBack/node_modules/
