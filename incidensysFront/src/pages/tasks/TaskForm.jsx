@@ -3,10 +3,10 @@ import utc from 'dayjs/plugin/utc';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useTasks } from '../context/TasksContext';
+import { useTasks } from '../../context/TasksContext';
 dayjs.extend(utc)
 
-const TaskFormPage = () => {
+const TaskForm = () => {
     const { register, handleSubmit, setValue } = useForm();
     const { createTask, getTask, updateTask } = useTasks();
     const navigate = useNavigate();
@@ -73,4 +73,4 @@ const TaskFormPage = () => {
     )
 }
 
-export default TaskFormPage
+export default TaskForm

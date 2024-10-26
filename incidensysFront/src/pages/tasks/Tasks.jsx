@@ -1,9 +1,9 @@
 import dayjs from 'dayjs';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useTasks } from '../context/TasksContext';
+import { useTasks } from '../../context/TasksContext';
 
-const TasksPage = () => {
+const Tasks = () => {
     const { getTasks, tasks, deleteTask } = useTasks();
 
     useEffect(() => {
@@ -43,4 +43,4 @@ const TasksPage = () => {
     </>
 }
 
-export default TasksPage
+export default Tasks
