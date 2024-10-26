@@ -3,15 +3,14 @@ import ProtectedRoute from './ProtectedRoute'
 import Navbar from './components/Navbar'
 import { AuthProvider } from './context/AuthContex'
 import { TaskProvider } from './context/TasksContext'
-import HomePage from './pages/HomePage'
-import LoginPage from './pages/LoginPage'
-import ProfilePage from './pages/ProfilePage'
-import RegisterPage from './pages/RegisterPage'
 import TaskFormPage from './pages/TaskFormPage'
 import TasksPage from './pages/TasksPage'
 import Accidents from './pages/accidents/Accidents'
+import LoginPage from './pages/auth/LoginPage'
+import RegisterPage from './pages/auth/RegisterPage'
 import Employees from './pages/employees/Employees'
 import Epps from './pages/epps/Epps'
+import HomePage from './pages/home/HomePage'
 import Incidents from './pages/incidents/Incidents'
 import Measures from './pages/measures/Measures'
 import Risks from './pages/risks/Risks'
@@ -34,7 +33,6 @@ const App = () => {
                 <Route path='/tasks' element={<TasksPage />} />
                 <Route path='/add-task' element={<TaskFormPage />} />
                 <Route path='/tasks/:id' element={<TaskFormPage />} />
-                <Route path='/profile' element={<ProfilePage />} />
 
                 <Route path='/empleados' element={<Employees />} />
                 <Route path='/accidentes' element={<Accidents />} />

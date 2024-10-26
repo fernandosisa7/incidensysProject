@@ -1,45 +1,35 @@
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContex';
+import { useAuth } from '../../context/AuthContex';
 
-const RegisterPage = () => {
+const LoginPage = () => {
     const {
         register,
         handleSubmit,
-        formState: { errors }
+        formState: { errors } // estos son errores de front
     } = useForm();
-    const { signup, isAuthenticated, errors: registerErrors } = useAuth(); // trae la funcion signup del contexto
+    const { signin, errors: signinErrors, isAuthenticated } = useAuth(); // estos son errores de back de error.response.data q se ven en consola, o respuesta de postman
     const navigate = useNavigate();
+
+    const onSubmit = handleSubmit(data => {
+        signin(data);
+    });
 
     useEffect(() => {
         if (isAuthenticated) navigate('/tasks');
     }, [isAuthenticated]);
 
-    const onSubmit = handleSubmit(async (values) => {
-        signup(values);
-    });
-
     return (
         <div className='flex h-[calc(100vh-100px)] items-center justify-center'>
-            <div className='bg-zinc-800 max-w-md p-10 rounded-md'>
-                {registerErrors.map((error, i) => (  //estos errores de backend se recomienda q el backend siempre responda en response.data = ['error1', 'error2'] para q sea facil de leer por el front
+            <div className='bg-zinc-800 max-w-md w-full p-10 rounded-md'>
+                {signinErrors.map((error, i) => (
                     <div className='bg-red-500 p-2 text-white text-center my-2' key={i}>
                         {error}
                     </div>
                 ))}
-                <h1 className='text-3xl font-bold my-2'>Register</h1>
+                <h1 className='text-3xl font-bold my-2'>Login</h1>
                 <form onSubmit={onSubmit}>
-                    <input
-                        type="text"
-                        {...register('username', { required: true })}
-                        className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
-                        placeholder='Username'
-                    />
-                    {errors.username && (
-                        <p className='text-red-500'>Username is required</p>
-                    )}
-
                     <input type="email" {...register('email', { required: true })}
                         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
                         placeholder='Email'
@@ -59,11 +49,11 @@ const RegisterPage = () => {
                     <button
                         className='bg-sky-500 text-white px-4 py-2 rounded-md my-2'
                         type='submit'
-                    >Register</button>
+                    >Login</button>
 
                     <p className='flex gap-x-2 justify-between'>
-                        Already have an account?
-                        <Link className='text-sky-500' to="/login">Sign in</Link>
+                        Don't have an account?
+                        <Link className='text-sky-500' to="/register">Sign up</Link>
                     </p>
                 </form>
             </div>
@@ -71,4 +61,4 @@ const RegisterPage = () => {
     )
 }
 
-export default RegisterPage
+export default LoginPage
