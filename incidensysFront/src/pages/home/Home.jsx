@@ -12,8 +12,8 @@ const Home = () => {
                     Bienvenido a Incidensys, un sistema diseñado para registrar y gestionar accidentes e incidentes en la construcción en Duitama, Boyacá.
                 </p>
                 <p>
-                    {isAuthenticated ? <>
-                        Con módulos CRUD para administrar empleados, accidentes y riesgos, Incidensys permite optimizar la seguridad y la gestión de datos.</>
+                    {isAuthenticated ?
+                        <>Con módulos CRUD para administrar empleados, accidentes y riesgos, Incidensys permite optimizar la seguridad y la gestión de datos.</>
                         :
                         <>Para iniciar puedes ingresar o crear una nueva cuenta si lo deseas.</>
                     }
