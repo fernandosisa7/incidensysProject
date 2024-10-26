@@ -8,7 +8,7 @@ import LoginPage from './pages/auth/LoginPage'
 import RegisterPage from './pages/auth/RegisterPage'
 import Employees from './pages/employees/Employees'
 import Epps from './pages/epps/Epps'
-import HomePage from './pages/home/HomePage'
+import Home from './pages/home/Home'
 import Incidents from './pages/incidents/Incidents'
 import Measures from './pages/measures/Measures'
 import Risks from './pages/risks/Risks'
@@ -24,7 +24,7 @@ const App = () => {
             <Navbar />
             <Routes>
               {/* rutas publicas */}
-              <Route path='/' element={<HomePage />} />
+              <Route path='/' element={<Home />} />
               <Route path='/login' element={<LoginPage />} />
               <Route path='/register' element={<RegisterPage />} />
 
