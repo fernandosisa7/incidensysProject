@@ -9,6 +9,12 @@ import ProfilePage from './pages/ProfilePage'
 import RegisterPage from './pages/RegisterPage'
 import TaskFormPage from './pages/TaskFormPage'
 import TasksPage from './pages/TasksPage'
+import Accidents from './pages/accidents/Accidents'
+import Employees from './pages/employees/Employees'
+import Epps from './pages/epps/Epps'
+import Incidents from './pages/incidents/Incidents'
+import Measures from './pages/measures/Measures'
+import Risks from './pages/risks/Risks'
 
 const App = () => {
   return (
@@ -29,6 +35,13 @@ const App = () => {
                 <Route path='/add-task' element={<TaskFormPage />} />
                 <Route path='/tasks/:id' element={<TaskFormPage />} />
                 <Route path='/profile' element={<ProfilePage />} />
+
+                <Route path='/empleados' element={<Employees />} />
+                <Route path='/accidentes' element={<Accidents />} />
+                <Route path='/incidentes' element={<Incidents />} />
+                <Route path='/riesgos' element={<Risks />} />
+                <Route path='/medidas' element={<Measures />} />
+                <Route path='/epps' element={<Epps />} />
               </Route>
             </Routes>
           </main>

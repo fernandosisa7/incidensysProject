@@ -18,9 +18,39 @@ const Navbar = () => {
                             Welcome User {user.username}
                         </li>
                         <li>
-                            <Link to='/add-task'
-                                className="bg-indigo-500 px-4 py-1 rounded-sm"
-                            >Add task</Link>
+                            <Link to='/empleados' className="bg-indigo-500 px-4 py-1 rounded-sm">
+                                Empleados
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to='/accidentes' className="bg-indigo-500 px-4 py-1 rounded-sm">
+                                Accidentes
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to='/incidentes' className="bg-indigo-500 px-4 py-1 rounded-sm">
+                                Incidentes
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to='/riesgos' className="bg-indigo-500 px-4 py-1 rounded-sm">
+                                Riesgos
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to='/medidas' className="bg-indigo-500 px-4 py-1 rounded-sm">
+                                Medidas
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to='/epps' className="bg-indigo-500 px-4 py-1 rounded-sm">
+                                EPPS
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to='/add-task' className="bg-indigo-500 px-4 py-1 rounded-sm">
+                                Add task
+                            </Link>
                         </li>
                         <li>
                             <Link to='/' onClick={() => logout()}>Logout</Link>

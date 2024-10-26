@@ -51,8 +51,14 @@
 - `npm i dayjs` se instala para formatera fechas
 
 ## para iniciar el proyecto en ambas carpetas front y backend
+- se necesita instalar node js, git, mongodb
 - la carpeta del front es /client, y la carpeta de back es toda /mernCrudAuth
 - front se prueba en http://localhost:5173/ desde google,
 - backend se prueba http://localhost:4000/api/register desde postman, ver carpeta routes
 - `npm install` para crear node_modules en ambas carpetas
 - `npm run dev` para iniciar el proyecto en ambas carpetas
+
+se subio el repositorio a git 
+
+fer23@gmail.com
+Admin$23
