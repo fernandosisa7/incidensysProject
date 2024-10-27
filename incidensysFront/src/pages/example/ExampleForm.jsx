@@ -13,7 +13,7 @@ const ExampleForm = () => {
     const params = useParams();
 
     useEffect(() => {
-        async function loadTask() {
+        const loadTask = async () => {
             if (params.id) {
                 const task = await getTask(params.id);
                 setValue('title', task.title);
@@ -43,30 +43,30 @@ const ExampleForm = () => {
 
             <div className='bg-zinc-800 max-w-md w-full p-10 rounded-md '>
                 <form onSubmit={onSubmit}>
-                    <label htmlFor="title">Title</label>
+                    <label htmlFor="title">Titulo</label>
                     <input
                         type='text'
-                        placeholder='Title'
+                        placeholder='Titulo'
                         {...register('title')}
                         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
                         autoFocus
                     />
 
-                    <label htmlFor="description">Description</label>
-                    <textarea rows='3' placeholder='Description'
+                    <label htmlFor="description">Descripción</label>
+                    <textarea rows='3' placeholder='Descripción'
                         {...register('description')}
                         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
                     ></textarea>
 
-                    <label htmlFor="date">Date</label>
+                    <label htmlFor="date">Fecha</label>
                     <input type='date'
                         {...register('date')}
                         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
                     />
 
-                    <button
-                        className='bg-indigo-500 px-3 rounded-md'
-                    >Save</button>
+                    <button className='bg-indigo-500 px-3 rounded-md'                    >
+                        Guardar
+                    </button>
                 </form>
             </div>
         </div>

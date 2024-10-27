@@ -6,15 +6,19 @@ import { useTasks } from '../../context/TasksContext';
 const Example = () => {
     const { getTasks, tasks, deleteTask } = useTasks();
 
+    if (tasks.length === 0) return (<h1>No hay tareas</h1>);
+
+    const generateReport = () => {
+        console.log('generate report')
+    };
+
     useEffect(() => {
         getTasks();
     }, []);
 
-    if (tasks.length === 0) return (<h1>No tasks</h1>)
-
     return <>
         <Link to='/add-example' className="bg-green-600 px-4 py-1 rounded-sm">
-            Add task
+            Agregar Tarea
         </Link>
 
         <div className='grid sm:grid-cols-2 md:grid-cols-3 gap-2'>
@@ -26,11 +30,16 @@ const Example = () => {
                             <button
                                 className='w-full bg-red-500 text-white px-4 py-2 rounded-md'
                                 onClick={() => { deleteTask(task._id) }}>
-                                delete
+                                Eliminar
                             </button>
                             <Link to={`/example/${task._id}`} className='w-full bg-blue-500 text-white px-4 py-2 rounded-md'>
-                                edit
+                                Editar
                             </Link>
+                            <button
+                                className='w-full bg-yellow-400 text-black px-4 py-2 rounded-md'
+                                onClick={() => generateReport()}>
+                                Reporte
+                            </button>
                         </div>
                     </header>
                     <p className="text-slate-300">{task.description}</p>
