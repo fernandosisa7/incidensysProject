@@ -45,9 +45,14 @@ const Navbar = () => {
                                 EPPS
                             </Link>
                         </li>
-                        <li>
+                        {/* <li>
                             <Link to='/tasks' className="bg-green-600 px-4 py-1 rounded-sm">
                                 Tasks
+                            </Link>
+                        </li> */}
+                        <li>
+                            <Link to='/example' className="bg-green-600 px-4 py-1 rounded-sm">
+                                Example
                             </Link>
                         </li>
                         <li>

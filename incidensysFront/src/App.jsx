@@ -20,6 +20,8 @@ import RiskForm from './pages/risks/RiskForm'
 import Risks from './pages/risks/Risks'
 import TaskForm from './pages/tasks/TaskForm'
 import Tasks from './pages/tasks/Tasks'
+import Example from './pages/example/Example'
+import ExampleForm from './pages/example/ExampleForm'
 
 const App = () => {
   return (
@@ -39,6 +41,10 @@ const App = () => {
                 <Route path='/tasks' element={<Tasks />} />
                 <Route path='/add-task' element={<TaskForm />} />
                 <Route path='/tasks/:id' element={<TaskForm />} />
+                
+                <Route path='/example' element={<Example />} />
+                <Route path='/add-example' element={<ExampleForm />} />
+                <Route path='/example/:id' element={<ExampleForm />} />
 
                 <Route path='/empleados' element={<Employees />} />
                 <Route path='/guardar-empleado' element={<EmployeeForm />} />
