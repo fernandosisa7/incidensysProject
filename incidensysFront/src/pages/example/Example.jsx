@@ -1,9 +1,10 @@
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTasks } from '../../hooks/useTasks';
 
 const Example = () => {
+    const navigate = useNavigate();
     const [tasks, setTasks] = useState([]);
     const { getTasks, loading, error, getTask, createTask, updateTask, deleteTask } = useTasks();
 
@@ -41,9 +42,11 @@ const Example = () => {
                                 onClick={() => { deleteElement(task._id); }}>
                                 Eliminar
                             </button>
-                            <Link to={`/example/${task._id}`} className='w-full bg-blue-500 text-white px-4 py-2 rounded-md'>
+                            <button
+                                className='w-full bg-blue-500 text-white px-4 py-2 rounded-md'
+                                onClick={() => navigate(`/example/${task._id}`)}>
                                 Editar
-                            </Link>
+                            </button>
                             <button
                                 className='w-full bg-yellow-400 text-black px-4 py-2 rounded-md'
                                 onClick={() => generateReport()}>
