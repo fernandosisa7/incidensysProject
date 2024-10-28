@@ -8,9 +8,22 @@ dayjs.extend(utc)
 
 const ExampleForm = () => {
     const { getTasks, loading, error, getTask, createTask, updateTask, deleteTask } = useTasks();
-    const { register, handleSubmit, setValue } = useForm();
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm();
     const navigate = useNavigate();
     const params = useParams();
+
+    const onSubmit = handleSubmit((data) => {
+        const dataValid = {
+            ...data,
+            date: data.date ? dayjs.utc(data.date).format() : dayjs.utc().format()
+        };
+        if (params.id) {
+            updateTask(params.id, dataValid);
+        } else {
+            createTask(dataValid);
+        }
+        navigate('/example');
+    });
 
     const loadTask = async () => {
         if (params.id) {
@@ -25,19 +38,6 @@ const ExampleForm = () => {
         loadTask();
     }, []);
 
-    const onSubmit = handleSubmit((data) => {
-        const dataValid = {
-            ...data,
-            date: data.date ? dayjs.utc(data.date).format() : dayjs.utc().format
-        };
-        if (params.id) {
-            updateTask(params.id, dataValid);
-        } else {
-            createTask(dataValid);
-        }
-        navigate('/example');
-    });
-
     return (
         <div className='flex h-[calc(100vh-100px)] items-center justify-center'>
             <div className='bg-zinc-800 max-w-md w-full p-10 rounded-md '>
@@ -47,16 +47,18 @@ const ExampleForm = () => {
                     <input
                         type='text'
                         placeholder='Titulo'
-                        {...register('title')}
+                        {...register('title', { required: 'Campo obligatorio' })}
                         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
                         autoFocus
                     />
+                    {errors.title && <p className="text-red-500">{errors.title.message}</p>}
 
                     <label htmlFor="description">Descripción</label>
                     <textarea rows='3' placeholder='Descripción'
-                        {...register('description')}
+                        {...register('description', { required: 'Campo obligatorio' })}
                         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
                     ></textarea>
+                    {errors.description && <p className="text-red-500">{errors.description.message}</p>}
 
                     <label htmlFor="date">Fecha</label>
                     <input type='date'
@@ -71,4 +73,4 @@ const ExampleForm = () => {
     )
 }
 
-export default ExampleForm
+export default ExampleForm;
