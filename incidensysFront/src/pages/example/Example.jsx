@@ -1,19 +1,26 @@
 import dayjs from 'dayjs';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useTasks } from '../../context/TasksContext';
+import { useTasks } from '../../hooks/useTasks';
 
 const Example = () => {
-    const { getTasks, tasks, deleteTask } = useTasks();
-
-    if (tasks.length === 0) return (<h1>No hay tareas</h1>);
+    const [tasks, setTasks] = useState([]);
+    const { getTasks, loading, error, getTask, createTask, updateTask, deleteTask } = useTasks();
+    // if (tasks.length === 0) return (<h1>No hay tareas</h1>);
 
     const generateReport = () => {
         console.log('generate report')
     };
 
+    const loadData = async () => {
+        const resTasks = await getTasks();
+        debugger
+        setTasks(resTasks);
+    };
+
     useEffect(() => {
         getTasks();
+        loadData();
     }, []);
 
     return <>
