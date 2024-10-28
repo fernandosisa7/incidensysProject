@@ -6,15 +6,15 @@ const Navbar = () => {
 
     return (
         <nav className="bg-zinc-700 my-3 flex justify-between py-5 px-10 rounded-lg">
-            <Link to={'/'}>
-                <h1 className="text-2xl font-bold">Incidensys</h1>
-            </Link>
+            <div className="flex items-center">
+                <Link to={'/'}>
+                    <h1 className="text-2xl font-bold">Incidensys</h1>
+                </Link>
+                <p className="ml-4">Bienvenido {user.username}</p>
+            </div>
             <ul className="flex gap-x-1">
                 {isAuthenticated ? (
                     <>
-                        <li>
-                            Bienvenido {user.username}
-                        </li>
                         <li>
                             <Link to='/empleados' className="bg-green-600 px-4 py-1 rounded-sm">
                                 Empleados
