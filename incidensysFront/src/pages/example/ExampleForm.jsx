@@ -40,8 +40,8 @@ const ExampleForm = () => {
 
     return (
         <div className='flex h-[calc(100vh-100px)] items-center justify-center'>
-
             <div className='bg-zinc-800 max-w-md w-full p-10 rounded-md '>
+                <p className="text-white font-bold text-3xl text-center">{params.id ? 'Editar Tarea' : 'Agregar Tarea'}</p>
                 <form onSubmit={onSubmit}>
                     <label htmlFor="title">Titulo</label>
                     <input
@@ -64,9 +64,7 @@ const ExampleForm = () => {
                         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
                     />
 
-                    <button className='bg-indigo-500 px-3 rounded-md'                    >
-                        Guardar
-                    </button>
+                    <button className='bg-blue-500 w-full py-2 mt-2 rounded-md'>Guardar</button>
                 </form>
             </div>
         </div>
