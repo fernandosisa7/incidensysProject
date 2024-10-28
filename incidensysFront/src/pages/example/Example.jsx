@@ -35,11 +35,11 @@ const Example = () => {
             {tasks.map(task => (
                 <div className="bg-zinc-800 max-w-md w-full p-10 rounded-md flex">
                     <div className="flex-1">
-                        <p className="text-white font-bold">Titulo</p>
+                        <p className="text-white font-bold">Titulo:</p>
                         <p className="text-slate-400">{task.title}</p>
-                        <p className="text-white font-bold">Descripción</p>
+                        <p className="text-white font-bold">Descripción:</p>
                         <p className="text-slate-400">{task.description}</p>
-                        <p className="text-white font-bold">Fecha</p>
+                        <p className="text-white font-bold">Fecha:</p>
                         <p className="text-slate-400">{dayjs(task.date).utc().format('DD/MM/YYYY')}</p>
                     </div>
                     <div className="flex flex-col justify-between">
