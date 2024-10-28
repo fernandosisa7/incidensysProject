@@ -5,7 +5,7 @@ import {
     getTaskRequest,
     getTasksRequest,
     updateTaskRequest,
-} from '../api/tasks'; // Asegúrate de que la ruta sea correcta
+} from '../api/tasksApi'; 
 
 export const useTasks = () => {
     const [loading, setLoading] = useState(true);
@@ -34,6 +34,7 @@ export const useTasks = () => {
     const createTask = async (task) => {
         try {
             const response = await createTaskRequest(task);
+            return response.data;
         } catch (err) {
             setError(err);
         }
@@ -42,6 +43,7 @@ export const useTasks = () => {
     const updateTask = async (id, task) => {
         try {
             const response = await updateTaskRequest(id, task);
+            return response.data;
         } catch (err) {
             setError(err);
         }
@@ -49,7 +51,8 @@ export const useTasks = () => {
 
     const deleteTask = async (id) => {
         try {
-            await deleteTaskRequest(id);
+            const response = await deleteTaskRequest(id);
+            return response.data;
         } catch (err) {
             setError(err);
         }

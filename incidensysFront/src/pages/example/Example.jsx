@@ -22,7 +22,6 @@ const Example = () => {
     };
 
     useEffect(() => {
-        // getTasks();
         loadData();
     }, []);
 
