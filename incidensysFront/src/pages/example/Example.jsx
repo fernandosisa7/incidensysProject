@@ -27,7 +27,7 @@ const Example = () => {
     }, []);
 
     return <>
-        <div className="flex justify-between items-center my-4 px-4">
+        <div className="flex justify-between items-center my-4 px-6">
             <p className="text-white font-bold text-3xl">Tareas</p>
             <p className="text-white font-bold text-3xl">Elemento</p>
             <button
