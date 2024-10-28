@@ -37,7 +37,7 @@
 - carpeta /api guarda las peticiones q se hacen hacia el backend
 - ProtectedRoute es un componente q se usa para proteger rutas, q solo se vean cuando se este authenticado
 
-## desde la consola desde la carpeta /client
+## desde la consola desde la carpeta /incidensysFront
 - `npm create vite` para crear el proyecto, se le dio de nombre client y react con js
 - `npm i` para crear la carpeta node_modules
 - `npm run dev` para correr el server en http://localhost:5173/
@@ -49,6 +49,7 @@
 - `npm i axios` istala axios para realizar peciones http
 - `npm i js-cookie` para poder leer las cookies desde el front
 - `npm i dayjs` se instala para formatera fechas
+- `npm install xlsx` se instala modulo para generar excel
 
 ## para iniciar el proyecto en ambas carpetas front y backend
 - se necesita instalar node js, git, mongodb

@@ -2,6 +2,7 @@ import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTasks } from '../../hooks/useTasks';
+import * as XLSX from 'xlsx';
 
 const Example = () => {
     const navigate = useNavigate();
@@ -9,8 +10,18 @@ const Example = () => {
     const { getTasks, loading, error, getTask, createTask, updateTask, deleteTask } = useTasks();
 
     const generateReport = () => {
-        console.log('generate report');
-        console.log('tasks', tasks)
+        const formattedTasks = tasks.map(task => ({
+            Titulo: task.title,
+            Descripción: task.description,
+            Fecha: dayjs(task.date).utc().format('DD/MM/YYYY'),
+        }));
+
+        const worksheet = XLSX.utils.json_to_sheet(formattedTasks);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'Tasks');
+
+        // Generate file
+        XLSX.writeFile(workbook, 'reporte_tareas.xlsx');
     };
 
     const deleteElement = async (id) => {
