@@ -79,7 +79,7 @@ const Example = () => {
                             <p className="text-white font-bold">Fecha:</p>
                             <p className="text-slate-400">{dayjs(task.date).utc().format('DD/MM/YYYY')}</p>
                         </div>
-                        <div className="flex flex-col justify-between">
+                        <div className="flex flex-col justify-center">
                             <button
                                 className='bg-red-500 text-white px-4 py-2 rounded-md mb-2'
                                 onClick={() => { deleteElement(task._id); }}>
