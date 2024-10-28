@@ -33,34 +33,35 @@ const Example = () => {
 
         <div className='grid sm:grid-cols-2 md:grid-cols-3 gap-2'>
             {tasks.map(task => (
-                <div className="bg-zinc-800 max-w-md w-full p-10 rounded-md">
-                    <header className="flex justify-between">
-                        <h1 className="text-2xl font-bold">{task.title}</h1>
-                        <div className="flex gap-x-2 items-center">
-                            <button
-                                className='w-full bg-red-500 text-white px-4 py-2 rounded-md'
-                                onClick={() => { deleteElement(task._id); }}>
-                                Eliminar
-                            </button>
-                            <button
-                                className='w-full bg-blue-500 text-white px-4 py-2 rounded-md'
-                                onClick={() => navigate(`/example/${task._id}`)}>
-                                Editar
-                            </button>
-                            <button
-                                className='w-full bg-yellow-400 text-black px-4 py-2 rounded-md'
-                                onClick={() => generateReport()}>
-                                Reporte
-                            </button>
-                        </div>
-                    </header>
-                    <p className="text-slate-300">{task.description}</p>
-                    <p>
-                        {dayjs(task.date).utc().format('DD/MM/YYYY')}
-                    </p>
-                </div >
+                <div className="bg-zinc-800 max-w-md w-full p-10 rounded-md flex">
+                    <div className="flex-1">
+                        <p className="text-white font-bold">Titulo</p>
+                        <p className="text-slate-400">{task.title}</p>
+                        <p className="text-white font-bold">Descripción</p>
+                        <p className="text-slate-400">{task.description}</p>
+                        <p className="text-white font-bold">Fecha</p>
+                        <p className="text-slate-400">{dayjs(task.date).utc().format('DD/MM/YYYY')}</p>
+                    </div>
+                    <div className="flex flex-col justify-between">
+                        <button
+                            className='bg-red-500 text-white px-4 py-2 rounded-md mb-2'
+                            onClick={() => { deleteElement(task._id); }}>
+                            Eliminar
+                        </button>
+                        <button
+                            className='bg-blue-500 text-white px-4 py-2 rounded-md mb-2'
+                            onClick={() => navigate(`/example/${task._id}`)}>
+                            Editar
+                        </button>
+                        <button
+                            className='bg-yellow-400 text-black px-4 py-2 rounded-md'>
+                            Reporte
+                        </button>
+                    </div>
+                </div>
             ))}
         </div>
+
     </>
 }
 
