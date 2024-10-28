@@ -5,10 +5,10 @@ import * as XLSX from 'xlsx';
 import { useTasks } from '../../hooks/useTasks';
 
 const Example = () => {
-    const navigate = useNavigate();
     const [tasks, setTasks] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const { getTasks, deleteTask } = useTasks();
+    const navigate = useNavigate();
 
     const filteredTasks = tasks.filter(task => {
         const formattedDate = dayjs(task.date).utc().format('DD/MM/YYYY');
