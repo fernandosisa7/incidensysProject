@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useTasks } from '../../hooks/useTasks';
 
 const Example = () => {
@@ -27,9 +27,16 @@ const Example = () => {
     }, []);
 
     return <>
-        <Link to='/add-example' className="bg-green-600 px-4 py-1 rounded-sm">
-            Agregar Tarea
-        </Link>
+        <div className="flex justify-between items-center my-4 px-4">
+            <p className="text-white font-bold text-3xl">Tareas</p>
+            <p className="text-white font-bold text-3xl">Elemento</p>
+            <button
+                className='bg-green-600 text-white px-4 py-2 rounded-md mb-2'
+                onClick={() => navigate('/add-example')}>
+                Crear Tarea
+            </button>
+        </div>
+
 
         <div className='grid sm:grid-cols-2 md:grid-cols-3 gap-2'>
             {tasks.map(task => (
