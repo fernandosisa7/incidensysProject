@@ -56,11 +56,16 @@ const Example = () => {
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
-                <button
-                    className='bg-green-600 text-white px-4 py-2 rounded-md mb-2'
-                    onClick={() => navigate('/add-example')}>
-                    Crear Tarea
-                </button>
+                <span className='flex space-x-2'>
+                    <button onClick={() => generateReport()} className='bg-yellow-400 text-black px-4 py-2 rounded-md'>
+                        Generar Reporte
+                    </button>
+                    <button
+                        className='bg-green-600 text-white px-4 py-2 rounded-md'
+                        onClick={() => navigate('/add-example')}>
+                        Crear Tarea
+                    </button>
+                </span>
             </div>
 
             <div className='grid sm:grid-cols-2 md:grid-cols-3 gap-2'>
@@ -84,9 +89,6 @@ const Example = () => {
                                 className='bg-blue-500 text-white px-4 py-2 rounded-md mb-2'
                                 onClick={() => navigate(`/example/${task._id}`)}>
                                 Editar
-                            </button>
-                            <button onClick={() => generateReport()} className='bg-yellow-400 text-black px-4 py-2 rounded-md'>
-                                Reporte
                             </button>
                         </div>
                     </div>
