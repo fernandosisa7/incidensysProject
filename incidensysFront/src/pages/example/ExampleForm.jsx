@@ -7,20 +7,21 @@ import { useTasks } from '../../hooks/useTasks';
 dayjs.extend(utc)
 
 const ExampleForm = () => {
-    const { register, handleSubmit, setValue } = useForm();
     const { getTasks, loading, error, getTask, createTask, updateTask, deleteTask } = useTasks();
+    const { register, handleSubmit, setValue } = useForm();
     const navigate = useNavigate();
     const params = useParams();
 
+    const loadTask = async () => {
+        if (params.id) {
+            const task = await getTask(params.id);
+            setValue('title', task.title);
+            setValue('description', task.description);
+            setValue('date', dayjs(task.date).utc().format('YYYY-MM-DD'));
+        }
+    };
+
     useEffect(() => {
-        const loadTask = async () => {
-            if (params.id) {
-                const task = await getTask(params.id);
-                setValue('title', task.title);
-                setValue('description', task.description);
-                setValue('date', dayjs(task.date).utc().format('YYYY-MM-DD'));
-            }
-        };
         loadTask();
     }, []);
 
@@ -29,13 +30,12 @@ const ExampleForm = () => {
             ...data,
             date: data.date ? dayjs.utc(data.date).format() : dayjs.utc().format
         };
-
         if (params.id) {
             updateTask(params.id, dataValid);
         } else {
             createTask(dataValid);
         }
-        navigate('/tasks');
+        navigate('/example');
     });
 
     return (

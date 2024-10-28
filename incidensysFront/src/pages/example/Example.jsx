@@ -6,20 +6,23 @@ import { useTasks } from '../../hooks/useTasks';
 const Example = () => {
     const [tasks, setTasks] = useState([]);
     const { getTasks, loading, error, getTask, createTask, updateTask, deleteTask } = useTasks();
-    // if (tasks.length === 0) return (<h1>No hay tareas</h1>);
 
     const generateReport = () => {
         console.log('generate report')
     };
 
+    const deleteElement = async (id) => {
+        await deleteTask(id);
+        loadData();
+    };
+
     const loadData = async () => {
         const resTasks = await getTasks();
-        debugger
         setTasks(resTasks);
     };
 
     useEffect(() => {
-        getTasks();
+        // getTasks();
         loadData();
     }, []);
 
@@ -36,7 +39,7 @@ const Example = () => {
                         <div className="flex gap-x-2 items-center">
                             <button
                                 className='w-full bg-red-500 text-white px-4 py-2 rounded-md'
-                                onClick={() => { deleteTask(task._id) }}>
+                                onClick={() => { deleteElement(task._id); }}>
                                 Eliminar
                             </button>
                             <Link to={`/example/${task._id}`} className='w-full bg-blue-500 text-white px-4 py-2 rounded-md'>
