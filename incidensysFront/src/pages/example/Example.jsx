@@ -9,7 +9,8 @@ const Example = () => {
     const { getTasks, loading, error, getTask, createTask, updateTask, deleteTask } = useTasks();
 
     const generateReport = () => {
-        console.log('generate report')
+        console.log('generate report');
+        console.log('tasks', tasks)
     };
 
     const deleteElement = async (id) => {
@@ -60,8 +61,7 @@ const Example = () => {
                             onClick={() => navigate(`/example/${task._id}`)}>
                             Editar
                         </button>
-                        <button
-                            className='bg-yellow-400 text-black px-4 py-2 rounded-md'>
+                        <button onClick={()=> generateReport()} className='bg-yellow-400 text-black px-4 py-2 rounded-md'>
                             Reporte
                         </button>
                     </div>
