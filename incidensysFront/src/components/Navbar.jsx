@@ -1,18 +1,26 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContex";
+import { useState } from "react";
 
 const Navbar = () => {
-    const { isAuthenticated, logout, user } = useAuth();
+    const { isAuthenticated, logout } = useAuth();
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
 
     return (
-        <nav className="bg-zinc-700 my-3 flex justify-between py-5 px-10 rounded-lg">
+        <nav className="bg-zinc-700 my-3 flex justify-between items-center py-5 px-10 rounded-lg">
             <div className="flex items-center">
                 <Link to={'/'}>
                     <h1 className="text-2xl font-bold">Incidensys</h1>
                 </Link>
-                {isAuthenticated && <p className="ml-4">Bienvenido {user.username}</p>}
             </div>
-            <ul className="flex gap-x-1">
+            <button onClick={toggleMenu} className="block lg:hidden">
+                {isMenuOpen ? "✖" : "☰"}
+            </button>
+            <ul className={`flex-col flex ${isMenuOpen ? 'block' : 'hidden'} md:flex md:flex-row md:items-center`}>
                 {isAuthenticated ? (
                     <>
                         <li>
@@ -45,11 +53,6 @@ const Navbar = () => {
                                 EPPS
                             </Link>
                         </li>
-                        {/* <li>
-                            <Link to='/tasks' className="bg-green-600 px-4 py-1 rounded-sm">
-                                Tasks
-                            </Link>
-                        </li> */}
                         <li>
                             <Link to='/example' className="bg-green-600 px-4 py-1 rounded-sm">
                                 Example
@@ -75,9 +78,9 @@ const Navbar = () => {
                         </li>
                     </>
                 )}
-            </ul >
-        </nav >
-    )
+            </ul>
+        </nav>
+    );
 }
 
-export default Navbar
+export default Navbar;
