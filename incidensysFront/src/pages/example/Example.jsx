@@ -69,7 +69,7 @@ const Example = () => {
             </div>
 
 
-            <div className='grid sm:grid-cols-2 md:grid-cols-3 gap-2'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2'>
                 {filteredTasks.map(task => (
                     <div key={task._id} className="bg-zinc-800 max-w-md w-full p-10 rounded-md flex">
                         <div className="flex-1">
