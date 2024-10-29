@@ -10,7 +10,7 @@ const Navbar = () => {
                 <Link to={'/'}>
                     <h1 className="text-2xl font-bold">Incidensys</h1>
                 </Link>
-                <p className="ml-4">Bienvenido {user.username}</p>
+                {isAuthenticated && <p className="ml-4">Bienvenido {user.username}</p>}
             </div>
             <ul className="flex gap-x-1">
                 {isAuthenticated ? (
