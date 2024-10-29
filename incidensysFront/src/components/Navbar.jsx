@@ -42,7 +42,7 @@ const Navbar = () => {
           <li><a href="/medidas" className="block py-2 px-4 bg-green-600 hover:bg-green-900">Medidas</a></li>
           <li><a href="/epps" className="block py-2 px-4 bg-green-600 hover:bg-green-900">EPPS</a></li>
           <li><a href="/example" className="block py-2 px-4 bg-green-600 hover:bg-green-900">Example</a></li>
-          <li><a onClick={() => logout()} className="block py-2 px-4 bg-red-500 hover:bg-red-700">Salir</a></li>
+          <li><a onClick={() => logout()} className="block py-2 px-4 bg-red-500 hover:bg-red-800">Salir</a></li>
         </> : <>
           <li><a href="/login" className="block py-2 px-4 bg-green-600 hover:bg-green-900">Ingresar</a></li>
           <li><a href="/register" className="block py-2 px-4 bg-green-600 hover:bg-green-900">Registrarse</a></li>
