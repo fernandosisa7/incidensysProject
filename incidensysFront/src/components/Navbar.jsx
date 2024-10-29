@@ -31,7 +31,7 @@ const Navbar = () => {
       </div>
       <ul
         ref={menuRef}
-        className={`${isOpen ? 'block' : 'hidden'} absolute bg-zinc-700 w-full transition-all duration-300 ease-in-out lg:flex lg:items-center lg:space-x-4 lg:static`}
+        className={`${isOpen ? 'block' : 'hidden'} absolute bg-zinc-700 w-full transition-all duration-300 ease-in-out lg:flex lg:items-center lg:justify-end lg:space-x-4 lg:static`}
         style={{ top: '100%' }}
       >
         {isAuthenticated ? <>
