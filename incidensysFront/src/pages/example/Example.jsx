@@ -47,26 +47,27 @@ const Example = () => {
 
     return (
         <>
-            <div className="flex justify-between items-center my-4 px-6">
-                <p className="text-white font-bold text-3xl">Tareas</p>
+            <div className="flex flex-col sm:flex-row justify-between items-center my-4 px-6">
+                <p className="text-white font-bold text-3xl mb-4 sm:mb-0 w-full sm:w-auto">Tareas</p>
                 <input
                     type="text"
                     placeholder="Buscar tareas..."
-                    className="px-4 py-2 rounded-md text-gray-700"
+                    className="px-4 py-2 rounded-md text-gray-700 mb-4 sm:mb-0 w-full sm:w-1/3"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
-                <span className='flex space-x-2'>
-                    <button onClick={() => generateReport()} className='bg-yellow-400 text-black px-4 py-2 rounded-md'>
+                <span className='flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 w-full sm:w-auto'>
+                    <button onClick={() => generateReport()} className='bg-yellow-400 text-black px-4 py-2 rounded-md w-full sm:w-auto'>
                         Generar Reporte
                     </button>
                     <button
-                        className='bg-green-600 text-white px-4 py-2 rounded-md'
+                        className='bg-green-600 text-white px-4 py-2 rounded-md w-full sm:w-auto'
                         onClick={() => navigate('/add-example')}>
                         Crear Tarea
                     </button>
                 </span>
             </div>
+
 
             <div className='grid sm:grid-cols-2 md:grid-cols-3 gap-2'>
                 {filteredTasks.map(task => (
