@@ -68,10 +68,9 @@ const Example = () => {
                 </span>
             </div>
 
-
-            <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4'>
                 {filteredTasks.map(task => (
-                    <div key={task._id} className="bg-zinc-800 max-w-md w-full p-10 rounded-md flex">
+                    <div key={task._id} className="bg-zinc-800 w-full p-10 rounded-md flex">
                         <div className="flex-1">
                             <p className="text-white font-bold">Titulo:</p>
                             <p className="text-slate-400">{task.title}</p>
@@ -95,6 +94,7 @@ const Example = () => {
                     </div>
                 ))}
             </div>
+
         </>
     );
 }
