@@ -25,7 +25,7 @@ const Navbar = () => {
 
   return (
     <nav className="bg-zinc-700 text-white p-4 flex justify-between items-center relative">
-      <div className="text-xl font-bold">Incidensys</div>
+      <a href='/'><div className="text-xl font-bold">Incidensys</div></a>
       <div className="cursor-pointer lg:hidden" onClick={toggleMenu}>
         {isOpen ? '✖' : '☰'}
       </div>
