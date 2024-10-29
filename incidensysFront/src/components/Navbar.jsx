@@ -1,86 +1,55 @@
-import { Link } from "react-router-dom";
-import { useAuth } from "../context/AuthContex";
-import { useState } from "react";
+import React, { useEffect, useRef, useState } from 'react';
+import { useAuth } from '../context/AuthContex';
 
 const Navbar = () => {
-    const { isAuthenticated, logout } = useAuth();
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isAuthenticated, logout } = useAuth();
+  const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef(null);
 
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleClickOutside = (event) => {
+    if (menuRef.current && !menuRef.current.contains(event.target)) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
     };
+  }, []);
 
-    return (
-        <nav className="bg-zinc-700 my-3 flex justify-between items-center py-5 px-10 rounded-lg">
-            <div className="flex items-center">
-                <Link to={'/'}>
-                    <h1 className="text-2xl font-bold">Incidensys</h1>
-                </Link>
-            </div>
-            <button onClick={toggleMenu} className="block lg:hidden">
-                {isMenuOpen ? "✖" : "☰"}
-            </button>
-            <ul className={`flex-col flex ${isMenuOpen ? 'block' : 'hidden'} md:flex md:flex-row md:items-center`}>
-                {isAuthenticated ? (
-                    <>
-                        <li>
-                            <Link to='/empleados' className="bg-green-600 px-4 py-1 rounded-sm">
-                                Empleados
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to='/accidentes' className="bg-green-600 px-4 py-1 rounded-sm">
-                                Accidentes
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to='/incidentes' className="bg-green-600 px-4 py-1 rounded-sm">
-                                Incidentes
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to='/riesgos' className="bg-green-600 px-4 py-1 rounded-sm">
-                                Riesgos
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to='/medidas' className="bg-green-600 px-4 py-1 rounded-sm">
-                                Medidas
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to='/epps' className="bg-green-600 px-4 py-1 rounded-sm">
-                                EPPS
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to='/example' className="bg-green-600 px-4 py-1 rounded-sm">
-                                Example
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to='/' onClick={() => logout()} className="bg-red-500 px-4 py-1 rounded-sm">
-                                Salir
-                            </Link>
-                        </li>
-                    </>
-                ) : (
-                    <>
-                        <li>
-                            <Link to='/login' className="bg-green-600 px-4 py-1 rounded-sm">
-                                Ingresar
-                            </Link>
-                        </li>
-                        <li>
-                            <Link to='/register' className="bg-green-600 px-4 py-1 rounded-sm">
-                                Registrarse
-                            </Link>
-                        </li>
-                    </>
-                )}
-            </ul>
-        </nav>
-    );
-}
+  return (
+    <nav className="bg-zinc-700 text-white p-4 flex justify-between items-center relative">
+      <div className="text-xl font-bold">Incidensys</div>
+      <div className="cursor-pointer lg:hidden" onClick={toggleMenu}>
+        {isOpen ? '✖' : '☰'}
+      </div>
+      <ul
+        ref={menuRef}
+        className={`${isOpen ? 'block' : 'hidden'} absolute bg-zinc-700 w-full transition-all duration-300 ease-in-out lg:flex lg:items-center lg:space-x-4 lg:static`}
+        style={{ top: '100%' }}
+      >
+        {isAuthenticated ? <>
+          <li><a href="/empleados" className="block py-2 px-4 hover:bg-gray-800">Empleados</a></li>
+          <li><a href="/accidentes" className="block py-2 px-4 hover:bg-gray-800">Accidentes</a></li>
+          <li><a href="/incidentes" className="block py-2 px-4 hover:bg-gray-800">Incidentes</a></li>
+          <li><a href="/riesgos" className="block py-2 px-4 hover:bg-gray-800">Riesgos</a></li>
+          <li><a href="/medidas" className="block py-2 px-4 hover:bg-gray-800">Medidas</a></li>
+          <li><a href="/epps" className="block py-2 px-4 hover:bg-gray-800">EPPS</a></li>
+          <li><a href="/example" className="block py-2 px-4 hover:bg-gray-800">Example</a></li>
+          <li><a onClick={() => logout()} className="block py-2 px-4 hover:bg-gray-800">Salir</a></li>
+        </> : <>
+          <li><a href="/login" className="block py-2 px-4 hover:bg-gray-800">Ingresar</a></li>
+          <li><a href="/register" className="block py-2 px-4 hover:bg-gray-800">Registrarse</a></li>
+        </>}
+      </ul>
+    </nav>
+  );
+};
 
 export default Navbar;
