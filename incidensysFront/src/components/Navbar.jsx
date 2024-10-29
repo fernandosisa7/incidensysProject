@@ -35,17 +35,17 @@ const Navbar = () => {
         style={{ top: '100%' }}
       >
         {isAuthenticated ? <>
-          <li><a href="/empleados" className="block py-2 px-4 hover:bg-gray-800">Empleados</a></li>
-          <li><a href="/accidentes" className="block py-2 px-4 hover:bg-gray-800">Accidentes</a></li>
-          <li><a href="/incidentes" className="block py-2 px-4 hover:bg-gray-800">Incidentes</a></li>
-          <li><a href="/riesgos" className="block py-2 px-4 hover:bg-gray-800">Riesgos</a></li>
-          <li><a href="/medidas" className="block py-2 px-4 hover:bg-gray-800">Medidas</a></li>
-          <li><a href="/epps" className="block py-2 px-4 hover:bg-gray-800">EPPS</a></li>
-          <li><a href="/example" className="block py-2 px-4 hover:bg-gray-800">Example</a></li>
-          <li><a onClick={() => logout()} className="block py-2 px-4 hover:bg-gray-800">Salir</a></li>
+          <li><a href="/empleados" className="block py-2 px-4 bg-green-600 hover:bg-green-900">Empleados</a></li>
+          <li><a href="/accidentes" className="block py-2 px-4 bg-green-600 hover:bg-green-900">Accidentes</a></li>
+          <li><a href="/incidentes" className="block py-2 px-4 bg-green-600 hover:bg-green-900">Incidentes</a></li>
+          <li><a href="/riesgos" className="block py-2 px-4 bg-green-600 hover:bg-green-900">Riesgos</a></li>
+          <li><a href="/medidas" className="block py-2 px-4 bg-green-600 hover:bg-green-900">Medidas</a></li>
+          <li><a href="/epps" className="block py-2 px-4 bg-green-600 hover:bg-green-900">EPPS</a></li>
+          <li><a href="/example" className="block py-2 px-4 bg-green-600 hover:bg-green-900">Example</a></li>
+          <li><a onClick={() => logout()} className="block py-2 px-4 bg-red-500 hover:bg-red-700">Salir</a></li>
         </> : <>
-          <li><a href="/login" className="block py-2 px-4 hover:bg-gray-800">Ingresar</a></li>
-          <li><a href="/register" className="block py-2 px-4 hover:bg-gray-800">Registrarse</a></li>
+          <li><a href="/login" className="block py-2 px-4 bg-green-600 hover:bg-green-900">Ingresar</a></li>
+          <li><a href="/register" className="block py-2 px-4 bg-green-600 hover:bg-green-900">Registrarse</a></li>
         </>}
       </ul>
     </nav>
