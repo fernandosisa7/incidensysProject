@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
 import { useTasks } from '../../hooks/useTasks';
 
-const Example = () => {
+const Examples = () => {
     const [tasks, setTasks] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const { getTasks, deleteTask } = useTasks();
@@ -126,7 +126,7 @@ const Example = () => {
                             </button>
                             <button
                                 className='bg-blue-500 text-white px-4 py-2 rounded-md mb-2'
-                                onClick={() => navigate(`/example/${task._id}`)}>
+                                onClick={() => navigate(`/examples/${task._id}`)}>
                                 Editar
                             </button>
                         </div>
@@ -137,4 +137,4 @@ const Example = () => {
     );
 }
 
-export default Example;
+export default Examples;

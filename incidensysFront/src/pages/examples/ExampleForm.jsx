@@ -52,7 +52,7 @@ const ExampleForm = () => {
                     }
                 });
             }
-            navigate('/example');
+            navigate('/examples');
         } catch (error) {
             Swal.fire({
                 icon: 'error',

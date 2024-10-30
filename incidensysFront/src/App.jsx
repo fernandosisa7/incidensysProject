@@ -11,6 +11,8 @@ import EmployeeForm from './pages/employees/EmployeeForm'
 import Employees from './pages/employees/Employees'
 import EppForm from './pages/epps/EppForm'
 import Epps from './pages/epps/Epps'
+import ExampleForm from './pages/examples/ExampleForm'
+import Examples from './pages/examples/Examples'
 import Home from './pages/home/Home'
 import IncidentForm from './pages/incidents/IncidentForm'
 import Incidents from './pages/incidents/Incidents'
@@ -20,8 +22,6 @@ import RiskForm from './pages/risks/RiskForm'
 import Risks from './pages/risks/Risks'
 import TaskForm from './pages/tasks/TaskForm'
 import Tasks from './pages/tasks/Tasks'
-import Example from './pages/example/Example'
-import ExampleForm from './pages/example/ExampleForm'
 
 const App = () => {
   return (
@@ -42,9 +42,9 @@ const App = () => {
                 <Route path='/add-task' element={<TaskForm />} />
                 <Route path='/tasks/:id' element={<TaskForm />} />
                 
-                <Route path='/example' element={<Example />} />
+                <Route path='/examples' element={<Examples />} />
                 <Route path='/add-example' element={<ExampleForm />} />
-                <Route path='/example/:id' element={<ExampleForm />} />
+                <Route path='/examples/:id' element={<ExampleForm />} />
 
                 <Route path='/empleados' element={<Employees />} />
                 <Route path='/guardar-empleado' element={<EmployeeForm />} />
