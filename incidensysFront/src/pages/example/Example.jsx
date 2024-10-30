@@ -55,7 +55,6 @@ const Example = () => {
                 cancelButton.style.borderRadius = '5px';
             }
         });
-
         if (result.isConfirmed) {
             await deleteTask(id);
             loadData();
@@ -134,7 +133,6 @@ const Example = () => {
                     </div>
                 ))}
             </div>
-
         </>
     );
 }

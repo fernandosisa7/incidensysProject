@@ -112,7 +112,9 @@ const ExampleForm = () => {
                         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
                     />
 
-                    <button className='bg-blue-500 w-full py-2 mt-2 rounded-md'>Guardar</button>
+                    <button className='bg-blue-500 w-full py-2 mt-2 rounded-md'>
+                        Guardar
+                    </button>
                 </form>
             </div>
         </div>
