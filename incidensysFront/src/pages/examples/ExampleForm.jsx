@@ -87,7 +87,7 @@ const ExampleForm = () => {
     return (
         <div className='flex h-[calc(100vh-100px)] items-center justify-center'>
             <div className='bg-zinc-800 max-w-md w-full p-8 rounded-md '>
-                <p className="text-white font-bold text-3xl mb-6 text-center">{params.id ? 'Editar Tarea' : 'Agregar Tarea'}</p>
+                <p className="text-white font-bold text-3xl mb-6 text-center">{params.id ? 'Editar Tarea' : 'Crear Tarea'}</p>
                 <form onSubmit={onSubmit}>
                     <label htmlFor="title">Titulo</label>
                     <input

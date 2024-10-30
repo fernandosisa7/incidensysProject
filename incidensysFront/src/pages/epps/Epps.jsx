@@ -111,7 +111,7 @@ const Epps = () => {
                 {filteredTasks.map(task => (
                     <div key={task._id} className="bg-zinc-800 w-full p-10 rounded-md flex">
                         <div className="flex-1">
-                            <p className="text-white font-bold">Tipo:</p>
+                            <p className="text-white font-bold">Tipo de Epp:</p>
                             <p className="text-slate-400">{task.title}</p>
                             <p className="text-white font-bold">Descripción:</p>
                             <p className="text-slate-400">{task.description}</p>

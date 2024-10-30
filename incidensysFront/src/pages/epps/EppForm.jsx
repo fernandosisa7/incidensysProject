@@ -88,9 +88,9 @@ const EppForm = () => {
     return (
         <div className='flex h-[calc(100vh-100px)] items-center justify-center'>
             <div className='bg-zinc-800 max-w-md w-full p-8 rounded-md '>
-                <p className="text-white font-bold text-3xl mb-6 text-center">{params.id ? 'Editar Epp' : 'Agregar Epp'}</p>
+                <p className="text-white font-bold text-3xl mb-6 text-center">{params.id ? 'Editar Epp' : 'Crear Epp'}</p>
                 <form onSubmit={onSubmit}>
-                    <label htmlFor="eppType">Tipo</label>
+                    <label htmlFor="eppType">Tipo de Epp</label>
                     <select
                         {...register('eppType', { required: 'Campo obligatorio' })}
                         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
