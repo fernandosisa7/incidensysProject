@@ -3,6 +3,7 @@ import utc from 'dayjs/plugin/utc';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import { useTasks } from '../../hooks/useTasks';
 dayjs.extend(utc)
 
@@ -12,17 +13,62 @@ const ExampleForm = () => {
     const navigate = useNavigate();
     const params = useParams();
 
-    const onSubmit = handleSubmit((data) => {
+    const onSubmit = handleSubmit(async (data) => {
         const dataValid = {
             ...data,
             date: data.date ? dayjs.utc(data.date).format() : dayjs.utc().format()
         };
-        if (params.id) {
-            updateTask(params.id, dataValid);
-        } else {
-            createTask(dataValid);
+        try {
+            if (params.id) {
+                await updateTask(params.id, dataValid);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Elemento actualizado',
+                    text: 'El elemento se ha actualizado correctamente.',
+                    customClass: {
+                        confirmButton: 'bg-blue-500 text-white custom-button',
+                    },
+                    buttonsStyling: false,
+                    willOpen: () => {
+                        const confirmButton = Swal.getConfirmButton();
+                        confirmButton.style.padding = '10px 20px';
+                        confirmButton.style.borderRadius = '5px';
+                    }
+                });
+            } else {
+                await createTask(dataValid);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Elemento creado',
+                    text: 'El elemento se ha creado correctamente.',
+                    customClass: {
+                        confirmButton: 'bg-blue-500 text-white',
+                    },
+                    buttonsStyling: false,
+                    willOpen: () => {
+                        const confirmButton = Swal.getConfirmButton();
+                        confirmButton.style.padding = '10px 20px';
+                        confirmButton.style.borderRadius = '5px';
+                    }
+                });
+            }
+            navigate('/example');
+        } catch (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Ha ocurrido un error al guardar el elemento, puedes consultarlo o modificarlo mas adelante.',
+                customClass: {
+                    confirmButton: 'bg-blue-500 text-white',
+                },
+                buttonsStyling: false,
+                willOpen: () => {
+                    const confirmButton = Swal.getConfirmButton();
+                    confirmButton.style.padding = '10px 20px';
+                    confirmButton.style.borderRadius = '5px';
+                }
+            });
         }
-        navigate('/example');
     });
 
     const loadTask = async () => {

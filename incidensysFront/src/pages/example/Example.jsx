@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
 import { useTasks } from '../../hooks/useTasks';
 
@@ -32,8 +33,47 @@ const Example = () => {
     };
 
     const deleteElement = async (id) => {
-        await deleteTask(id);
-        loadData();
+        const result = await Swal.fire({
+            title: '¿Estás seguro?',
+            text: 'Esta acción no se puede deshacer.',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar',
+            customClass: {
+                confirmButton: 'bg-red-500 text-white',
+                cancelButton: 'bg-gray-300 text-black',
+            },
+            buttonsStyling: false,
+            willOpen: () => {
+                const confirmButton = Swal.getConfirmButton();
+                const cancelButton = Swal.getCancelButton();
+                confirmButton.style.padding = '10px 20px';
+                confirmButton.style.borderRadius = '5px';
+                confirmButton.style.marginRight = '10px';
+                cancelButton.style.padding = '10px 20px';
+                cancelButton.style.borderRadius = '5px';
+            }
+        });
+
+        if (result.isConfirmed) {
+            await deleteTask(id);
+            loadData();
+            Swal.fire({
+                icon: 'success',
+                title: 'Elemento eliminado',
+                text: 'El elemento se ha eliminado correctamente.',
+                customClass: {
+                    confirmButton: 'bg-blue-500 text-white custom-button',
+                },
+                buttonsStyling: false,
+                willOpen: () => {
+                    const confirmButton = Swal.getConfirmButton();
+                    confirmButton.style.padding = '10px 20px';
+                    confirmButton.style.borderRadius = '5px';
+                }
+            });
+        }
     };
 
     const loadData = async () => {
