@@ -88,7 +88,7 @@ const AccidentForm = () => {
     return (
         <div className='flex my-4 items-center justify-center'>
             <div className='bg-zinc-800 max-w-md w-full p-8 rounded-md '>
-                <p className="text-white font-bold text-3xl mb-6 text-center">{params.id ? 'Editar accidente' : 'Crear accidente'}</p>
+                <p className="text-white font-bold text-3xl mb-6 text-center">{params.id ? 'Editar accidente' : 'Registrar accidente'}</p>
                 <form onSubmit={onSubmit}>
                     <label htmlFor="accidentDate">Fecha del accidente</label>
                     <input type='date'

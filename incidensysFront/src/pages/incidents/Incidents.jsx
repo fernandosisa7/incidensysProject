@@ -102,7 +102,7 @@ const Incidents = () => {
                     <button
                         className='bg-green-600 text-white px-4 py-2 rounded-md w-full sm:w-auto'
                         onClick={() => navigate('/guardar-incidente')}>
-                        Crear incidente
+                        Registrar incidente
                     </button>
                 </span>
             </div>

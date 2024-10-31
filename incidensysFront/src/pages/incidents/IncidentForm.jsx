@@ -88,7 +88,7 @@ const IncidentForm = () => {
     return (
         <div className='flex my-4 items-center justify-center'>
             <div className='bg-zinc-800 max-w-md w-full p-8 rounded-md '>
-                <p className="text-white font-bold text-3xl mb-6 text-center">{params.id ? 'Editar incidente' : 'Crear incidente'}</p>
+                <p className="text-white font-bold text-3xl mb-6 text-center">{params.id ? 'Editar incidente' : 'Registrar incidente'}</p>
                 <form onSubmit={onSubmit}>
                     <label htmlFor="incidentDate">Fecha del incidente</label>
                     <input type='date'

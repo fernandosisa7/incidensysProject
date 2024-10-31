@@ -88,7 +88,7 @@ const RiskForm = () => {
     return (
         <div className='flex h-[calc(100vh-100px)] items-center justify-center'>
             <div className='bg-zinc-800 max-w-md w-full p-8 rounded-md '>
-                <p className="text-white font-bold text-3xl mb-6 text-center">{params.id ? 'Editar riesgo' : 'Crear riesgo'}</p>
+                <p className="text-white font-bold text-3xl mb-6 text-center">{params.id ? 'Editar riesgo' : 'Registrar riesgo'}</p>
                 <form onSubmit={onSubmit}>
                     <label htmlFor="description">Descripción del riesgo</label>
                     <textarea rows='3' placeholder='Descripción'
