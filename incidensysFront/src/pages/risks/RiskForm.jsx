@@ -90,7 +90,7 @@ const RiskForm = () => {
             <div className='bg-zinc-800 max-w-md w-full p-8 rounded-md '>
                 <p className="text-white font-bold text-3xl mb-6 text-center">{params.id ? 'Editar riesgo' : 'Crear riesgo'}</p>
                 <form onSubmit={onSubmit}>
-                    <label htmlFor="description">Descripción</label>
+                    <label htmlFor="description">Descripción del riesgo</label>
                     <textarea rows='3' placeholder='Descripción'
                         {...register('description', { required: 'Campo obligatorio' })}
                         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
