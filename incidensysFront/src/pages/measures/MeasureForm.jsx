@@ -114,7 +114,6 @@ const MeasureForm = () => {
                     <select
                         {...register('risk')}
                         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
-                        autoFocus
                     >
                         <option value="" disabled selected>Selecciona un riesgo</option>
                         <option value="opcion1">opcion1</option>

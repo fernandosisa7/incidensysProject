@@ -94,6 +94,7 @@ const RiskForm = () => {
                     <textarea rows='3' placeholder='Descripción'
                         {...register('description', { required: 'Campo obligatorio' })}
                         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
+                        autoFocus
                     ></textarea>
                     {errors.description && <p className="text-red-500">{errors.description.message}</p>}
 
@@ -101,7 +102,6 @@ const RiskForm = () => {
                     <select
                         {...register('occurrence')}
                         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
-                        autoFocus
                     >
                         <option value="" disabled selected>Selecciona una opción</option>
                         <option value="bajo">Bajo</option>
@@ -114,7 +114,6 @@ const RiskForm = () => {
                     <select
                         {...register('impactLevel')}
                         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
-                        autoFocus
                     >
                         <option value="" disabled selected>Selecciona un tipo</option>
                         <option value="bajo">Bajo</option>
@@ -127,7 +126,6 @@ const RiskForm = () => {
                     <select
                         {...register('category', { required: 'Campo obligatorio' })}
                         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
-                        autoFocus
                     >
                         <option value="" disabled selected>Selecciona una categoría</option>
                         <option value="fisicos">Fisicos</option>
