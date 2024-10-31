@@ -53,7 +53,7 @@ const RiskForm = () => {
                     }
                 });
             }
-            navigate('/examples');
+            navigate('/riesgos');
         } catch (error) {
             Swal.fire({
                 icon: 'error',

@@ -53,7 +53,7 @@ const EppForm = () => {
                     }
                 });
             }
-            navigate('/examples');
+            navigate('/epps');
         } catch (error) {
             Swal.fire({
                 icon: 'error',

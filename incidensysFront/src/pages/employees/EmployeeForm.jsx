@@ -53,7 +53,7 @@ const EmployeeForm = () => {
                     }
                 });
             }
-            navigate('/examples');
+            navigate('/empleados');
         } catch (error) {
             Swal.fire({
                 icon: 'error',

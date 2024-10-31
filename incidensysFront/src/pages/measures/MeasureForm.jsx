@@ -53,7 +53,7 @@ const MeasureForm = () => {
                     }
                 });
             }
-            navigate('/examples');
+            navigate('/medidas');
         } catch (error) {
             Swal.fire({
                 icon: 'error',
