@@ -97,7 +97,7 @@ const Employees = () => {
                 />
                 <span className='flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 w-full sm:w-auto'>
                     <button onClick={() => generateReport()} className='bg-yellow-400 text-black px-4 py-2 rounded-md w-full sm:w-auto'>
-                        Generar Reporte
+                        Descargar Reporte
                     </button>
                     <button
                         className='bg-green-600 text-white px-4 py-2 rounded-md w-full sm:w-auto'
