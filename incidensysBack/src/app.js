@@ -4,6 +4,7 @@ import express from 'express';
 import morgan from 'morgan';
 import authRoutes from './routes/auth.routes.js';
 import taskRoutes from './routes/tasks.routes.js';
+import examplesRoutes from './routes/examples.routes.js';
 
 const app = express(); // app es la app del servidor
 
@@ -18,5 +19,6 @@ app.use(cookieParser()); // para que se puedan leer las cookies en formato json
 
 app.use('/api', authRoutes);  // app ejecuta las rutas de auth (login, register)
 app.use('/api', taskRoutes);  // app ejecuta las rutas de taskRoutes
+app.use('/api', examplesRoutes); 
 
 export default app;

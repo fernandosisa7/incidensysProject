@@ -1,9 +1,12 @@
 ## conceptos backend
 - /routes  esta carpeta almacena todos los endpoints o rutas que el front puede pedir
-- /controllers  almacena funciones que se ejecutan cuando se visita una URL
 - /models  almacena los modelos de datos de nuestra db 
-- /middlewares son funciones q se ejecutan antes de que lleguen a una ruta ejemplo validateToken para validar q el usuario en verdad esta authenticado
+- /controllers  almacena funciones que se ejecutan cuando se visita una URL
 - /schemas para validar datos cuando lleguen al backend
+
+- para crear un servicio si primero se crea el routes, luego models, luego controllers, luego schemas, y se agrega a app.js
+
+- /middlewares son funciones q se ejecutan antes de que lleguen a una ruta ejemplo validateToken para validar q el usuario en verdad esta authenticado
 - /libs  guarda codigo q podemos re importar varias veces, ejemplo funcion para generar tokens
 - db.js  guarda la conexion a la base de datos mongodb
 - config.js  guarda configuraciones q el resto de archivos puede importar ejemplo variables secret para tokens
@@ -58,6 +61,9 @@
 - backend se prueba http://localhost:4000/api/register desde postman, ver carpeta routes
 - `npm install` para crear node_modules en ambas carpetas
 - `npm run dev` para iniciar el proyecto en ambas carpetas
+
+- para ver la db se abre MongodbCompas y new conection no requiere configuracion
+- para postman se abre postman y se importa el archivo `tasks.postman_collection.json`
 
 se subio el repositorio a git 
 
