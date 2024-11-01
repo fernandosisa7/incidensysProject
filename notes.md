@@ -4,7 +4,7 @@
 - /controllers  almacena funciones que se ejecutan cuando se visita una URL
 - /schemas para validar datos cuando lleguen al backend
 
-- para crear un servicio si primero se crea el routes, luego models, luego controllers, luego schemas, y se agrega a app.js
+- para crear un servicio si primero se crea el routes, luego models, luego controllers,, y se agrega a app.js, los esquemas son opcionales porque se puede validar tambien con el modelo de mongoose 
 
 - /middlewares son funciones q se ejecutan antes de que lleguen a una ruta ejemplo validateToken para validar q el usuario en verdad esta authenticado
 - /libs  guarda codigo q podemos re importar varias veces, ejemplo funcion para generar tokens

@@ -10,10 +10,10 @@ router.get('/examples', authRequired, getExamples);
 
 router.get('/examples/:id', authRequired, getExample);
 
-router.post('/examples', authRequired, validateSchema(saveExampleSchema), createExample);
+router.post('/examples', authRequired,  createExample);
 
 router.delete('/examples/:id', authRequired, deleteExample);
 
-router.put('/examples/:id', authRequired, validateSchema(saveExampleSchema), updateExample);
+router.put('/examples/:id', authRequired, updateExample);
 
 export default router
