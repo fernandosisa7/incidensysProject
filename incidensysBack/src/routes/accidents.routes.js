@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { authRequired } from '../middlewares/validateToken.js';
-import { createAccident, deleteAccident, getAccident, getAccidents, updateAccident } from '../controllers/accidents.controller.js';
+import { createAccident, deleteAccident, getAccident, getAccidents, updateAccident } from '../controllers/accident.controller.js';
 
 const accidentsRoutes = Router();
 

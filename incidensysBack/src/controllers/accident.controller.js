@@ -1,5 +1,5 @@
 // archivo accident.controller.js
-import Accident from '../models/accidents.model.js';
+import Accident from '../models/accident.model.js';
 
 export const getAccidents = async (req, res) => {
     try {
