@@ -5,8 +5,8 @@ import morgan from 'morgan';
 import authRoutes from './routes/auth.routes.js';
 import taskRoutes from './routes/tasks.routes.js';
 import employeesRoutes from './routes/employees.routes.js';
-import accidentsRoutes from './routes/accidents.routes.js';
 import examplesRoutes from './routes/examples.routes.js';
+import accidentsRoutes from './routes/accidents.routes.js';
 
 const app = express(); // app es la app del servidor
 
