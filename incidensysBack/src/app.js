@@ -10,6 +10,7 @@ import incidentsRoutes from './routes/incidents.routes.js';
 import measuresRoutes from './routes/measures.routes.js';
 import risksRoutes from './routes/risks.routes.js';
 import taskRoutes from './routes/tasks.routes.js';
+import eppsRoutes from './routes/epps.routes.js';
 
 const app = express(); // app es la app del servidor
 
@@ -30,5 +31,6 @@ app.use('/api', accidentsRoutes);
 app.use('/api', incidentsRoutes);
 app.use('/api', risksRoutes);
 app.use('/api', measuresRoutes);
+app.use('/api', eppsRoutes);
 
 export default app;
