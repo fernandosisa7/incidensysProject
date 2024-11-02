@@ -1,24 +1,26 @@
-// archivo epp.model.js
 import mongoose from 'mongoose';
 
 const eppSchema = new mongoose.Schema({
-    title: {
+    type: {
         type: String,
-        required: [true, 'Title is required'],
-        maxlength: [100, 'Title cannot exceed 100 characters']
+        enum: ['helmet', 'glasses', 'gloves', 'boots', 'masks', 'work clothes'],
+        required: [true, 'Type is required']
     },
     description: {
         type: String,
         required: [true, 'Description is required'],
         maxlength: [500, 'Description cannot exceed 500 characters']
     },
-    date: {
+    assignment_date: {
         type: Date,
-        default: Date.now,
         validate: {
             validator: (v) => v instanceof Date && !isNaN(v),
-            message: 'Date must be a valid date'
+            message: 'Assignment date must be a valid date'
         }
+    },
+    employee_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Employee'
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,

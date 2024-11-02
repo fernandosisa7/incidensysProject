@@ -1,4 +1,3 @@
-// archivo epp.controller.js
 import Epp from '../models/epp.model.js';
 
 export const getEpps = async (req, res) => {
@@ -12,8 +11,8 @@ export const getEpps = async (req, res) => {
 
 export const createEpp = async (req, res) => {
     try {
-        const { title, description, date } = req.body;
-        const newElement = new Epp({ title, description, date, user: req.user.id });
+        const { type, description, assignment_date, employee_id } = req.body;
+        const newElement = new Epp({ type, description, assignment_date, employee_id, user: req.user.id });
         const savedElement = await newElement.save();
         res.status(201).json(savedElement);
     } catch (error) {
