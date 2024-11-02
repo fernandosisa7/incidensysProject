@@ -1,3 +1,4 @@
+// archivo example.controller.js
 import Example from '../models/example.model.js';
 
 export const getExamples = async (req, res) => {

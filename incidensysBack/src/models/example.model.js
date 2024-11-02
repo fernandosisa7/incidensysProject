@@ -1,3 +1,4 @@
+// archivo example.model.js
 import mongoose from 'mongoose';
 
 const exampleSchema = new mongoose.Schema({
