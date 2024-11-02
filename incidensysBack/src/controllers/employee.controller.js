@@ -11,8 +11,19 @@ export const getEmployees = async (req, res) => {
 
 export const createEmployee = async (req, res) => {
     try {
-        const { title, description, date } = req.body;
-        const newEmployee = new Employee({ title, description, date, user: req.user.id });
+        const { name, email, citizenshipId, position, hireDate, address, phone, emergencyContactName, emergencyPhone } = req.body;
+        const newEmployee = new Employee({
+            name,
+            email,
+            citizenshipId,
+            position,
+            hireDate,
+            address,
+            phone,
+            emergencyContactName,
+            emergencyPhone,
+            user: req.user.id
+        });
         const savedEmployee = await newEmployee.save();
         res.status(201).json(savedEmployee);
     } catch (error) {
