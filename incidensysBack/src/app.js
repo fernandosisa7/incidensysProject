@@ -8,6 +8,7 @@ import employeesRoutes from './routes/employees.routes.js';
 import examplesRoutes from './routes/examples.routes.js';
 import accidentsRoutes from './routes/accidents.routes.js';
 import incidentsRoutes from './routes/incidents.routes.js';
+import risksRoutes from './routes/risks.routes.js';
 
 const app = express(); // app es la app del servidor
 
@@ -26,5 +27,6 @@ app.use('/api', examplesRoutes);
 app.use('/api', employeesRoutes);
 app.use('/api', accidentsRoutes);
 app.use('/api', incidentsRoutes);
+app.use('/api', risksRoutes);
 
 export default app;
