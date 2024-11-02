@@ -2,16 +2,16 @@ import { Router } from 'express';
 import { createExample, deleteExample, getExample, getExamples, updateExample } from '../controllers/example.controller.js';
 import { authRequired } from '../middlewares/validateToken.js';
 
-const router = Router();
+const examplesRoutes = Router();
 
-router.get('/examples', authRequired, getExamples);
+examplesRoutes.get('/examples', authRequired, getExamples);
 
-router.get('/examples/:id', authRequired, getExample);
+examplesRoutes.get('/examples/:id', authRequired, getExample);
 
-router.post('/examples', authRequired, createExample);
+examplesRoutes.post('/examples', authRequired, createExample);
 
-router.delete('/examples/:id', authRequired, deleteExample);
+examplesRoutes.delete('/examples/:id', authRequired, deleteExample);
 
-router.put('/examples/:id', authRequired, updateExample);
+examplesRoutes.put('/examples/:id', authRequired, updateExample);
 
-export default router
+export default examplesRoutes

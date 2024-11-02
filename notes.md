@@ -1,10 +1,10 @@
 ## conceptos backend
-- /routes  esta carpeta almacena todos los endpoints o rutas que el front puede pedir
 - /models  almacena los modelos de datos de nuestra db 
 - /controllers  almacena funciones que se ejecutan cuando se visita una URL
+- /routes  esta carpeta almacena todos los endpoints o rutas que el front puede pedir
 - /schemas para validar datos cuando lleguen al backend
 
-- para crear un servicio si primero se crea el routes, luego models, luego controllers,, y se agrega a app.js, los esquemas son opcionales porque se puede validar tambien con el modelo de mongoose 
+- para crear un servicio si primero se crea el models, luego controllers, luego routes,, y se agrega a app.js, los esquemas son opcionales porque se puede validar tambien con el modelo de mongoose 
 
 - /middlewares son funciones q se ejecutan antes de que lleguen a una ruta ejemplo validateToken para validar q el usuario en verdad esta authenticado
 - /libs  guarda codigo q podemos re importar varias veces, ejemplo funcion para generar tokens
