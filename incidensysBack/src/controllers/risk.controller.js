@@ -1,4 +1,3 @@
-// archivo risk.controller.js
 import Risk from '../models/risk.model.js';
 
 export const getRisks = async (req, res) => {
@@ -12,8 +11,8 @@ export const getRisks = async (req, res) => {
 
 export const createRisk = async (req, res) => {
     try {
-        const { title, description, date } = req.body;
-        const newElement = new Risk({ title, description, date, user: req.user.id });
+        const { description, occurrence, impactLevel, category } = req.body;
+        const newElement = new Risk({ description, occurrence, impactLevel, category, user: req.user.id });
         const savedElement = await newElement.save();
         res.status(201).json(savedElement);
     } catch (error) {
