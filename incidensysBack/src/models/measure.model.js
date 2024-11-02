@@ -1,16 +1,20 @@
-// archivo measure.model.js
 import mongoose from 'mongoose';
 
 const measureSchema = new mongoose.Schema({
-    title: {
+    type: {
         type: String,
-        required: [true, 'Title is required'],
-        maxlength: [100, 'Title cannot exceed 100 characters']
+        enum: ['preventive', 'corrective'],
+        required: [true, 'Type is required']
     },
     description: {
         type: String,
         required: [true, 'Description is required'],
         maxlength: [500, 'Description cannot exceed 500 characters']
+    },
+    riskId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Risk',
+        required: false
     },
     date: {
         type: Date,

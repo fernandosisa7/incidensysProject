@@ -1,4 +1,3 @@
-// archivo measure.controller.js
 import Measure from '../models/measure.model.js';
 
 export const getMeasures = async (req, res) => {
@@ -12,8 +11,8 @@ export const getMeasures = async (req, res) => {
 
 export const createMeasure = async (req, res) => {
     try {
-        const { title, description, date } = req.body;
-        const newElement = new Measure({ title, description, date, user: req.user.id });
+        const { type, description, date, riskId } = req.body;
+        const newElement = new Measure({ type, description, date, riskId, user: req.user.id });
         const savedElement = await newElement.save();
         res.status(201).json(savedElement);
     } catch (error) {
