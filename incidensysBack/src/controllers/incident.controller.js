@@ -1,4 +1,3 @@
-// archivo incident.controller.js
 import Incident from '../models/incident.model.js';
 
 export const getIncidents = async (req, res) => {
@@ -12,8 +11,16 @@ export const getIncidents = async (req, res) => {
 
 export const createIncident = async (req, res) => {
     try {
-        const { title, description, date } = req.body;
-        const newElement = new Incident({ title, description, date, user: req.user.id });
+        const { incidentDate, accidentTime, description, location, employeeId, riskId } = req.body;
+        const newElement = new Incident({
+            incidentDate,
+            accidentTime,
+            description,
+            location,
+            employeeId,
+            riskId,
+            user: req.user.id
+        });
         const savedElement = await newElement.save();
         res.status(201).json(savedElement);
     } catch (error) {
