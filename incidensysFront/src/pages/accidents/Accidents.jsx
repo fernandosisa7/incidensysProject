@@ -4,19 +4,17 @@ import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
 import { useAccidents } from '../../hooks/useAccidents';
-import { useEmployees } from '../../hooks/useEmployees';
 
 const Accidents = () => {
     const [accidents, setAccidents] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const { getAccidents, deleteAccident } = useAccidents();
-    const { getEmployee } = useEmployees();
     const navigate = useNavigate();
 
     const filteredAccidents = accidents.filter(accident => {
         const formattedDate = dayjs(accident.accidentDate).utc().format('DD/MM/YYYY');
         return (
-            accident.employeeId.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            accident.employeeId?.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
             accident.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
             formattedDate.includes(searchTerm)
         );
@@ -28,7 +26,7 @@ const Accidents = () => {
             Hora_del_accidente: accident.accidentTime,
             Descripción: accident.description,
             Lugar: accident.location,
-            Empleado: accident.employeeId.name,
+            Empleado: accident.employeeId?.name,
             Riesgo: accident.riskId.description,
         }));
         const worksheet = XLSX.utils.json_to_sheet(formattedAccidents);
@@ -121,7 +119,7 @@ const Accidents = () => {
                             <p className="text-white font-bold">Descripción:</p>
                             <p className="text-slate-400">{accident.description}</p>
                             <p className="text-white font-bold">Empleado:</p>
-                            <p className="text-slate-400">{accident.employeeId.name}</p>
+                            <p className="text-slate-400">{accident.employeeId?.name}</p>
                         </div>
                         <div className="flex flex-col justify-center">
                             <button

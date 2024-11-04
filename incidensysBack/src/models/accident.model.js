@@ -2,11 +2,12 @@ import mongoose from 'mongoose';
 
 const accidentSchema = new mongoose.Schema({
     accidentDate: { // Translated from 'date'
-        type: Date,
         required: [true, 'Accident date is required'],
+        type: Date,
+        default: Date.now,
         validate: {
             validator: (v) => v instanceof Date && !isNaN(v),
-            message: 'Date must be a valid date'
+            message: 'Hire date must be a valid date'
         }
     },
     accidentTime: { // New optional field for time

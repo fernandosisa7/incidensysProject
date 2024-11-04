@@ -1,27 +1,32 @@
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { useTasks } from '../../hooks/useTasks';
+import { useAccidents } from '../../hooks/useAccidents';
+import { useEmployees } from '../../hooks/useEmployees';
+import { useRisks } from '../../hooks/useRisks';
 dayjs.extend(utc)
 
 const AccidentForm = () => {
-    const { getTasks, loading, error, getTask, createTask, updateTask, deleteTask } = useTasks();
+    const { getAccident, createAccident, updateAccident } = useAccidents();
+    const { getEmployees } = useEmployees();
+    const { getRisks } = useRisks();
+    const [employees, setEmployees] = useState([]);
+    const [risks, setRisks] = useState([]);
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
     const navigate = useNavigate();
     const params = useParams();
 
     const onSubmit = handleSubmit(async (data) => {
-        // const dataValid = {
-        //     ...data,
-        //     date: data.date ? dayjs.utc(data.date).format() : dayjs.utc().format()
-        // };
-        console.log('data', data);
+        const dataValid = {
+            ...data,
+            accidentDate: dayjs(data.accidentDate).utc().format('YYYY-MM-DD'),
+        };
         try {
             if (params.id) {
-                // await updateTask(params.id, dataValid);
+                await updateAccident(params.id, dataValid);
                 Swal.fire({
                     icon: 'success',
                     title: 'Elemento actualizado',
@@ -37,7 +42,7 @@ const AccidentForm = () => {
                     }
                 });
             } else {
-                // await createTask(dataValid);
+                await createAccident(dataValid);
                 Swal.fire({
                     icon: 'success',
                     title: 'Elemento creado',
@@ -72,17 +77,28 @@ const AccidentForm = () => {
         }
     });
 
-    const loadTask = async () => {
+    const loadAccident = async () => {
         if (params.id) {
-            const task = await getTask(params.id);
-            setValue('title', task.title);
-            setValue('description', task.description);
-            setValue('date', dayjs(task.date).utc().format('YYYY-MM-DD'));
+            const accident = await getAccident(params.id);
+            setValue('accidentDate', dayjs(accident.accidentDate).utc().format('YYYY-MM-DD'));
+            setValue('accidentTime', accident.accidentTime);
+            setValue('description', accident.description);
+            setValue('location', accident.location);
+            setValue('employeeId', String(accident.employeeId?._id));
+            setValue('riskId', String(accident.riskId?._id));
         }
     };
 
+    const loadData = async () => {
+        const resEmployees = await getEmployees();
+        const resRisk = await getRisks();
+        setEmployees(resEmployees);
+        setRisks(resRisk);
+    };
+
     useEffect(() => {
-        loadTask();
+        loadAccident();
+        loadData();
     }, []);
 
     return (
@@ -98,12 +114,12 @@ const AccidentForm = () => {
                     />
                     {errors.accidentDate && <p className="text-red-500">{errors.accidentDate.message}</p>}
 
-                    <label htmlFor="accidentHour">Hora del accidente</label>
+                    <label htmlFor="accidentTime">Hora del accidente</label>
                     <input type='time'
-                        {...register('accidentHour')}
+                        {...register('accidentTime')}
                         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
                     />
-                    {errors.accidentHour && <p className="text-red-500">{errors.accidentHour.message}</p>}
+                    {errors.accidentTime && <p className="text-red-500">{errors.accidentTime.message}</p>}
 
                     <label htmlFor="description">Descripción</label>
                     <textarea rows='3' placeholder='Descripción'
@@ -112,38 +128,42 @@ const AccidentForm = () => {
                     ></textarea>
                     {errors.description && <p className="text-red-500">{errors.description.message}</p>}
 
-                    <label htmlFor="place">Lugar</label>
+                    <label htmlFor="location">Lugar</label>
                     <input
                         type='text'
                         placeholder='Lugar'
-                        {...register('place')}
+                        {...register('location')}
                         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
                     />
-                    {errors.place && <p className="text-red-500">{errors.place.message}</p>}
+                    {errors.location && <p className="text-red-500">{errors.location.message}</p>}
 
-                    <label htmlFor="employee">Empleado</label>
+                    <label htmlFor="employeeId">Empleado</label>
                     <select
-                        {...register('employee', { required: 'Campo obligatorio' })}
+                        {...register('employeeId', { required: 'Campo obligatorio' })}
                         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
                     >
                         <option value="" disabled selected>Selecciona un empleado</option>
-                        <option value="opcion1">opcion1</option>
-                        <option value="opcion2">opcion2</option>
-                        <option value="opcion3">opcion3</option>
+                        {employees.map(employee => (
+                            <option key={employee._id} value={employee._id}>
+                                {employee.name}
+                            </option>
+                        ))}
                     </select>
-                    {errors.employee && <p className="text-red-500">{errors.employee.message}</p>}
+                    {errors.employeeId && <p className="text-red-500">{errors.employeeId.message}</p>}
 
-                    <label htmlFor="risk">Riesgo</label>
+                    <label htmlFor="riskId">Riesgo</label>
                     <select
-                        {...register('risk')}
+                        {...register('riskId')}
                         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
                     >
                         <option value="" disabled selected>Selecciona un riesgo</option>
-                        <option value="opcion1">opcion1</option>
-                        <option value="opcion2">opcion2</option>
-                        <option value="opcion3">opcion3</option>
+                        {risks.map(risk => (
+                            <option key={risk._id} value={risk._id}>
+                                {risk.description}
+                            </option>
+                        ))}
                     </select>
-                    {errors.risk && <p className="text-red-500">{errors.risk.message}</p>}
+                    {errors.riskId && <p className="text-red-500">{errors.riskId.message}</p>}
 
                     <button className='bg-blue-500 w-full py-2 mt-2 rounded-md'>
                         Guardar
