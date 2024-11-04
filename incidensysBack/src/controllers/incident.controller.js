@@ -2,7 +2,7 @@ import Incident from '../models/incident.model.js';
 
 export const getIncidents = async (req, res) => {
     try {
-        const elements = await Incident.find({ user: req.user.id }).populate('user');
+        const elements = await Incident.find({ user: req.user.id }).populate('user').populate('employeeId').populate('riskId');
         res.json(elements);
     } catch (error) {
         return res.status(500).json({ message: 'Something went wrong' });
@@ -11,10 +11,10 @@ export const getIncidents = async (req, res) => {
 
 export const createIncident = async (req, res) => {
     try {
-        const { incidentDate, accidentTime, description, location, employeeId, riskId } = req.body;
+        const { incidentDate, incidentTime, description, location, employeeId, riskId } = req.body;
         const newElement = new Incident({
             incidentDate,
-            accidentTime,
+            incidentTime,
             description,
             location,
             employeeId,

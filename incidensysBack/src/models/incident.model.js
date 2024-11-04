@@ -9,9 +9,9 @@ const incidentSchema = new mongoose.Schema({
             message: 'Incident date must be a valid date'
         }
     },
-    accidentTime: { // Hora del accidente
+    incidentTime: { // Hora del incidente
         type: String,
-        maxlength: [10, 'Accident time cannot exceed 10 characters']
+        maxlength: [10, 'Incident time cannot exceed 10 characters']
     },
     description: { // Descripción
         type: String,
