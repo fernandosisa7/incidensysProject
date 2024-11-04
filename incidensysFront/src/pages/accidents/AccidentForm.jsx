@@ -77,7 +77,11 @@ const AccidentForm = () => {
         }
     });
 
-    const loadAccident = async () => {
+    const loadData = async () => {
+        const resEmployees = await getEmployees();
+        const resRisk = await getRisks();
+        setEmployees(resEmployees);
+        setRisks(resRisk);
         if (params.id) {
             const accident = await getAccident(params.id);
             setValue('accidentDate', dayjs(accident.accidentDate).utc().format('YYYY-MM-DD'));
@@ -89,15 +93,7 @@ const AccidentForm = () => {
         }
     };
 
-    const loadData = async () => {
-        const resEmployees = await getEmployees();
-        const resRisk = await getRisks();
-        setEmployees(resEmployees);
-        setRisks(resRisk);
-    };
-
     useEffect(() => {
-        loadAccident();
         loadData();
     }, []);
 
