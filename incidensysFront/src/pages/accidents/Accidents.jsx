@@ -16,6 +16,7 @@ const Accidents = () => {
     const filteredAccidents = accidents.filter(accident => {
         const formattedDate = dayjs(accident.accidentDate).utc().format('DD/MM/YYYY');
         return (
+            accident.employeeId.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
             accident.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
             formattedDate.includes(searchTerm)
         );
@@ -23,9 +24,12 @@ const Accidents = () => {
 
     const generateReport = () => {
         const formattedAccidents = accidents.map(accident => ({
-            Titulo: accident.location,
+            Fecha_accidente: dayjs(accident.accidentDate).utc().format('DD/MM/YYYY'),
+            Hora_del_accidente: accident.accidentTime,
             Descripción: accident.description,
-            Fecha: dayjs(accident.accidentDate).utc().format('DD/MM/YYYY'),
+            Lugar: accident.location,
+            Empleado: accident.employeeId.name,
+            Riesgo: accident.riskId.description,
         }));
         const worksheet = XLSX.utils.json_to_sheet(formattedAccidents);
         const workbook = XLSX.utils.book_new();
@@ -117,7 +121,7 @@ const Accidents = () => {
                             <p className="text-white font-bold">Descripción:</p>
                             <p className="text-slate-400">{accident.description}</p>
                             <p className="text-white font-bold">Empleado:</p>
-                            <p className="text-slate-400">{()=>getEmployee('672699f08c3fa69cea2d8137')}</p>
+                            <p className="text-slate-400">{accident.employeeId.name}</p>
                         </div>
                         <div className="flex flex-col justify-center">
                             <button
