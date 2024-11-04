@@ -2,7 +2,7 @@ import Measure from '../models/measure.model.js';
 
 export const getMeasures = async (req, res) => {
     try {
-        const elements = await Measure.find({ user: req.user.id }).populate('user');
+        const elements = await Measure.find({ user: req.user.id }).populate('user').populate('riskId');
         res.json(elements);
     } catch (error) {
         return res.status(500).json({ message: 'Something went wrong' });

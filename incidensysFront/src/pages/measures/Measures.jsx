@@ -1,34 +1,32 @@
-import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
-import { useTasks } from '../../hooks/useTasks';
+import { useMeasures } from '../../hooks/useMeasures';
 
 const Measures = () => {
-    const [tasks, setTasks] = useState([]);
+    const [measures, setMeasures] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
-    const { getTasks, deleteTask } = useTasks();
+    const { getMeasures, deleteMeasure } = useMeasures();
     const navigate = useNavigate();
 
-    const filteredTasks = tasks.filter(task => {
-        const formattedDate = dayjs(task.date).utc().format('DD/MM/YYYY');
+    const filteredMeasures = measures.filter(measure => {
         return (
-            task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            task.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            formattedDate.includes(searchTerm)
+            measure.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            measure.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            measure.riskId?.description.toLowerCase().includes(searchTerm.toLowerCase())
         );
     });
 
     const generateReport = () => {
-        const formattedTasks = tasks.map(task => ({
-            Titulo: task.title,
-            Descripción: task.description,
-            Fecha: dayjs(task.date).utc().format('DD/MM/YYYY'),
+        const formattedMeasures = measures.map(measure => ({
+            Tipo: measure.type,
+            Descripción: measure.description,
+            Riesgo: measure.riskId?.description,
         }));
-        const worksheet = XLSX.utils.json_to_sheet(formattedTasks);
+        const worksheet = XLSX.utils.json_to_sheet(formattedMeasures);
         const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, 'Tasks');
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'Measures');
         XLSX.writeFile(workbook, 'reporte_medidas.xlsx');
     };
 
@@ -56,7 +54,7 @@ const Measures = () => {
             }
         });
         if (result.isConfirmed) {
-            // await deleteTask(id);
+            await deleteMeasure(id);
             loadData();
             Swal.fire({
                 icon: 'success',
@@ -76,8 +74,8 @@ const Measures = () => {
     };
 
     const loadData = async () => {
-        const resTasks = await getTasks();
-        setTasks(resTasks);
+        const resMeasures = await getMeasures();
+        setMeasures(resMeasures);
     };
 
     useEffect(() => {
@@ -108,25 +106,25 @@ const Measures = () => {
             </div>
 
             <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4'>
-                {filteredTasks.map(task => (
-                    <div key={task._id} className="bg-zinc-800 w-full p-10 rounded-md flex">
+                {filteredMeasures.map(measure => (
+                    <div key={measure._id} className="bg-zinc-800 w-full p-10 rounded-md flex">
                         <div className="flex-1">
                             <p className="text-white font-bold">Tipo de medida:</p>
-                            <p className="text-slate-400">{task.title}</p>
+                            <p className="text-slate-400">{measure?.type}</p>
                             <p className="text-white font-bold">Descripción:</p>
-                            <p className="text-slate-400">{task.description}</p>
+                            <p className="text-slate-400">{measure?.description}</p>
                             <p className="text-white font-bold">Riesgo:</p>
-                            <p className="text-slate-400">{task.description}</p>
+                            <p className="text-slate-400">{measure.riskId?.description}</p>
                         </div>
                         <div className="flex flex-col justify-center">
                             <button
                                 className='bg-red-500 text-white px-4 py-2 rounded-md mb-2'
-                                onClick={() => { deleteElement(task._id); }}>
+                                onClick={() => { deleteElement(measure._id); }}>
                                 Eliminar
                             </button>
                             <button
                                 className='bg-blue-500 text-white px-4 py-2 rounded-md mb-2'
-                                onClick={() => navigate(`/medidas/${task._id}`)}>
+                                onClick={() => navigate(`/medidas/${measure._id}`)}>
                                 Editar
                             </button>
                         </div>
