@@ -3,32 +3,33 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
-import { useTasks } from '../../hooks/useTasks';
+import { useAccidents } from '../../hooks/useAccidents';
+import { useEmployees } from '../../hooks/useEmployees';
 
 const Accidents = () => {
-    const [tasks, setTasks] = useState([]);
+    const [accidents, setAccidents] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
-    const { getTasks, deleteTask } = useTasks();
+    const { getAccidents, deleteAccident } = useAccidents();
+    const { getEmployee } = useEmployees();
     const navigate = useNavigate();
 
-    const filteredTasks = tasks.filter(task => {
-        const formattedDate = dayjs(task.date).utc().format('DD/MM/YYYY');
+    const filteredAccidents = accidents.filter(accident => {
+        const formattedDate = dayjs(accident.accidentDate).utc().format('DD/MM/YYYY');
         return (
-            task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            task.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            accident.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
             formattedDate.includes(searchTerm)
         );
     });
 
     const generateReport = () => {
-        const formattedTasks = tasks.map(task => ({
-            Titulo: task.title,
-            Descripción: task.description,
-            Fecha: dayjs(task.date).utc().format('DD/MM/YYYY'),
+        const formattedAccidents = accidents.map(accident => ({
+            Titulo: accident.location,
+            Descripción: accident.description,
+            Fecha: dayjs(accident.accidentDate).utc().format('DD/MM/YYYY'),
         }));
-        const worksheet = XLSX.utils.json_to_sheet(formattedTasks);
+        const worksheet = XLSX.utils.json_to_sheet(formattedAccidents);
         const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, 'Tasks');
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'Accidents');
         XLSX.writeFile(workbook, 'reporte_accidentes.xlsx');
     };
 
@@ -56,7 +57,7 @@ const Accidents = () => {
             }
         });
         if (result.isConfirmed) {
-            // await deleteTask(id);
+            await deleteAccident(id);
             loadData();
             Swal.fire({
                 icon: 'success',
@@ -76,8 +77,8 @@ const Accidents = () => {
     };
 
     const loadData = async () => {
-        const resTasks = await getTasks();
-        setTasks(resTasks);
+        const resAccidents = await getAccidents();
+        setAccidents(resAccidents);
     };
 
     useEffect(() => {
@@ -108,25 +109,25 @@ const Accidents = () => {
             </div>
 
             <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4'>
-                {filteredTasks.map(task => (
-                    <div key={task._id} className="bg-zinc-800 w-full p-10 rounded-md flex">
+                {filteredAccidents.map(accident => (
+                    <div key={accident._id} className="bg-zinc-800 w-full p-10 rounded-md flex">
                         <div className="flex-1">
                             <p className="text-white font-bold">Fecha del accidente:</p>
-                            <p className="text-slate-400">{dayjs(task.date).utc().format('DD/MM/YYYY')}</p>
+                            <p className="text-slate-400">{dayjs(accident.accidentDate).utc().format('DD/MM/YYYY')}</p>
                             <p className="text-white font-bold">Descripción:</p>
-                            <p className="text-slate-400">{task.description}</p>
+                            <p className="text-slate-400">{accident.description}</p>
                             <p className="text-white font-bold">Empleado:</p>
-                            <p className="text-slate-400">{task.description}</p>
+                            <p className="text-slate-400">{()=>getEmployee('672699f08c3fa69cea2d8137')}</p>
                         </div>
                         <div className="flex flex-col justify-center">
                             <button
                                 className='bg-red-500 text-white px-4 py-2 rounded-md mb-2'
-                                onClick={() => { deleteElement(task._id); }}>
+                                onClick={() => { deleteElement(accident._id); }}>
                                 Eliminar
                             </button>
                             <button
                                 className='bg-blue-500 text-white px-4 py-2 rounded-md mb-2'
-                                onClick={() => navigate(`/accidentes/${task._id}`)}>
+                                onClick={() => navigate(`/accidentes/${accident._id}`)}>
                                 Editar
                             </button>
                         </div>

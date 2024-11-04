@@ -25,6 +25,7 @@ export const useEmployees = () => {
     const getEmployee = async (id) => {
         try {
             const response = await getEmployeeRequest(id);
+            console.log('response', response)
             return response.data;
         } catch (err) {
             setError(err);
