@@ -4,24 +4,28 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { useTasks } from '../../hooks/useTasks';
+import { useEmployees } from '../../hooks/useEmployees';
 dayjs.extend(utc)
 
 const EmployeeForm = () => {
-    const { getTasks, loading, error, getTask, createTask, updateTask, deleteTask } = useTasks();
+    const { getEmployee, createEmployee, updateEmployee } = useEmployees();
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
     const navigate = useNavigate();
     const params = useParams();
 
     const onSubmit = handleSubmit(async (data) => {
-        // const dataValid = {
-        //     ...data,
-        //     date: data.date ? dayjs.utc(data.date).format() : dayjs.utc().format()
-        // };
+        const dataValid = {
+            ...data,
+            citizenshipId: Number(data.citizenshipId),
+            phone: Number(data.phone),
+            emergencyPhone: Number(data.emergencyPhone),
+            date: data.date ? dayjs(employee.hireDate).utc().format('YYYY-MM-DD') : null
+        };
+        debugger
         console.log('data', data);
         try {
             if (params.id) {
-                // await updateTask(params.id, dataValid);
+                await updateEmployee(params.id, dataValid);
                 Swal.fire({
                     icon: 'success',
                     title: 'Elemento actualizado',
@@ -37,7 +41,7 @@ const EmployeeForm = () => {
                     }
                 });
             } else {
-                // await createTask(dataValid);
+                await createEmployee(dataValid);
                 Swal.fire({
                     icon: 'success',
                     title: 'Elemento creado',
@@ -72,17 +76,23 @@ const EmployeeForm = () => {
         }
     });
 
-    const loadTask = async () => {
+    const loadEmployee = async () => {
         if (params.id) {
-            const task = await getTask(params.id);
-            setValue('title', task.title);
-            setValue('description', task.description);
-            setValue('date', dayjs(task.date).utc().format('YYYY-MM-DD'));
+            const employee = await getEmployee(params.id);
+            setValue('name', employee.name);
+            setValue('email', employee.email);
+            setValue('citizenshipId', employee.citizenshipId);
+            setValue('position', employee.position);
+            setValue('hireDate', dayjs(employee.hireDate).utc().format('YYYY-MM-DD'));
+            setValue('address', employee.address);
+            setValue('phone', employee.phone);
+            setValue('emergencyContactName', employee.emergencyContactName);
+            setValue('emergencyPhone', employee.emergencyPhone);
         }
     };
 
     useEffect(() => {
-        loadTask();
+        loadEmployee();
     }, []);
 
     return (
@@ -91,33 +101,33 @@ const EmployeeForm = () => {
                 <p className="text-white font-bold text-3xl mb-6 text-center">{params.id ? 'Editar empleado' : 'Crear empleado'}</p>
                 <form onSubmit={onSubmit}>
 
-                    <label htmlFor="completeName">Nombre completo del empleado</label>
+                    <label htmlFor="name">Nombre completo del empleado</label>
                     <input
                         type='text'
                         placeholder='Nombre completo'
-                        {...register('completeName', { required: 'Campo obligatorio' })}
+                        {...register('name', { required: 'Campo obligatorio' })}
                         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
                         autoFocus
                     />
-                    {errors.completeName && <p className="text-red-500">{errors.completeName.message}</p>}
+                    {errors.name && <p className="text-red-500">{errors.name.message}</p>}
 
                     <label htmlFor="email">Email</label>
                     <input
-                        type='text'
+                        type='email'
                         placeholder='Email'
                         {...register('email', { required: 'Campo obligatorio' })}
                         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
                     />
                     {errors.email && <p className="text-red-500">{errors.email.message}</p>}
 
-                    <label htmlFor="identityNumber">Cedula de ciudadania</label>
+                    <label htmlFor="citizenshipId">Cedula de ciudadania</label>
                     <input
                         type='number'
                         placeholder='Cedula de ciudadania'
-                        {...register('identityNumber', { required: 'Campo obligatorio' })}
+                        {...register('citizenshipId', { required: 'Campo obligatorio' })}
                         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
                     />
-                    {errors.identityNumber && <p className="text-red-500">{errors.identityNumber.message}</p>}
+                    {errors.citizenshipId && <p className="text-red-500">{errors.citizenshipId.message}</p>}
 
                     <label htmlFor="position">Cargo</label>
                     <input
@@ -128,9 +138,9 @@ const EmployeeForm = () => {
                     />
                     {errors.position && <p className="text-red-500">{errors.position.message}</p>}
 
-                    <label htmlFor="entryDay">Fecha de ingreso</label>
+                    <label htmlFor="hireDate">Fecha de ingreso</label>
                     <input type='date'
-                        {...register('entryDay')}
+                        {...register('hireDate')}
                         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
                     />
 
@@ -143,14 +153,14 @@ const EmployeeForm = () => {
                     />
                     {errors.address && <p className="text-red-500">{errors.address.message}</p>}
 
-                    <label htmlFor="phoneNumber">Teléfono</label>
+                    <label htmlFor="phone">Teléfono</label>
                     <input
-                        type='tel'
+                        type='number'
                         placeholder='Teléfono'
-                        {...register('phoneNumber', { required: 'Campo obligatorio' })}
+                        {...register('phone', { required: 'Campo obligatorio' })}
                         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
                     />
-                    {errors.phoneNumber && <p className="text-red-500">{errors.phoneNumber.message}</p>}
+                    {errors.phone && <p className="text-red-500">{errors.phone.message}</p>}
 
                     <label htmlFor="emergencyContactName">Nombre contacto emergencia</label>
                     <input
@@ -161,14 +171,14 @@ const EmployeeForm = () => {
                     />
                     {errors.emergencyContactName && <p className="text-red-500">{errors.emergencyContactName.message}</p>}
 
-                    <label htmlFor="emergencyContactPhone">Telefono contacto de emergencia</label>
+                    <label htmlFor="emergencyPhone">Telefono contacto de emergencia</label>
                     <input
                         type='number'
                         placeholder='Telefono contacto de emergencia'
-                        {...register('emergencyContactPhone')}
+                        {...register('emergencyPhone')}
                         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
                     />
-                    {errors.emergencyContactPhone && <p className="text-red-500">{errors.emergencyContactPhone.message}</p>}
+                    {errors.emergencyPhone && <p className="text-red-500">{errors.emergencyPhone.message}</p>}
 
                     <button className='bg-blue-500 w-full py-2 mt-2 rounded-md'>
                         Guardar
