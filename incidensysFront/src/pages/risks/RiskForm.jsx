@@ -4,24 +4,22 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { useTasks } from '../../hooks/useTasks';
+import { useRisks } from '../../hooks/useRisks';
 dayjs.extend(utc)
 
 const RiskForm = () => {
-    const { getTasks, loading, error, getTask, createTask, updateTask, deleteTask } = useTasks();
+    const { getRisk, createRisk, updateRisk } = useRisks();
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
     const navigate = useNavigate();
     const params = useParams();
 
     const onSubmit = handleSubmit(async (data) => {
-        // const dataValid = {
-        //     ...data,
-        //     date: data.date ? dayjs.utc(data.date).format() : dayjs.utc().format()
-        // };
-        console.log('data', data);
+        const dataValid = {
+            ...data,
+        };
         try {
             if (params.id) {
-                // await updateTask(params.id, dataValid);
+                await updateRisk(params.id, dataValid);
                 Swal.fire({
                     icon: 'success',
                     title: 'Elemento actualizado',
@@ -37,7 +35,7 @@ const RiskForm = () => {
                     }
                 });
             } else {
-                // await createTask(dataValid);
+                await createRisk(dataValid);
                 Swal.fire({
                     icon: 'success',
                     title: 'Elemento creado',
@@ -72,17 +70,18 @@ const RiskForm = () => {
         }
     });
 
-    const loadTask = async () => {
+    const loadRisk = async () => {
         if (params.id) {
-            const task = await getTask(params.id);
-            setValue('title', task.title);
-            setValue('description', task.description);
-            setValue('date', dayjs(task.date).utc().format('YYYY-MM-DD'));
+            const risk = await getRisk(params.id);
+            setValue('description', risk.description);
+            setValue('occurrence', risk.occurrence);
+            setValue('impactLevel', risk.impactLevel);
+            setValue('category', risk.category);
         }
     };
 
     useEffect(() => {
-        loadTask();
+        loadRisk();
     }, []);
 
     return (
@@ -104,9 +103,9 @@ const RiskForm = () => {
                         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
                     >
                         <option value="" disabled selected>Selecciona una opción</option>
-                        <option value="bajo">Bajo</option>
-                        <option value="medio">Medio</option>
-                        <option value="alto">Alto</option>
+                        <option value="Bajo">Bajo</option>
+                        <option value="Medio">Medio</option>
+                        <option value="Alto">Alto</option>
                     </select>
                     {errors.occurrence && <p className="text-red-500">{errors.occurrence.message}</p>}
 
@@ -116,9 +115,9 @@ const RiskForm = () => {
                         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
                     >
                         <option value="" disabled selected>Selecciona un tipo</option>
-                        <option value="bajo">Bajo</option>
-                        <option value="medio">Medio</option>
-                        <option value="alto">Alto</option>
+                        <option value="Bajo">Bajo</option>
+                        <option value="Medio">Medio</option>
+                        <option value="Alto">Alto</option>
                     </select>
                     {errors.impactLevel && <p className="text-red-500">{errors.impactLevel.message}</p>}
 
@@ -128,12 +127,12 @@ const RiskForm = () => {
                         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
                     >
                         <option value="" disabled selected>Selecciona una categoría</option>
-                        <option value="fisicos">Fisicos</option>
-                        <option value="quimicos">Químicos</option>
-                        <option value="biologicos">Biologicos</option>
-                        <option value="ergonomicos">Ergonomicos</option>
-                        <option value="electricos">Eléctricos</option>
-                        <option value="incendio_explosion">Por incendio o explosión</option>
+                        <option value="Físico">Físico</option>
+                        <option value="Químico">Químico</option>
+                        <option value="Biológico">Biológico</option>
+                        <option value="Ergonómico">Ergonómico</option>
+                        <option value="Eléctrico">Eléctrico</option>
+                        <option value="Por incendio o explosión">Por incendio o explosión</option>
                     </select>
                     {errors.category && <p className="text-red-500">{errors.category.message}</p>}
 
