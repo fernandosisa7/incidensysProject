@@ -8,18 +8,18 @@ const riskSchema = new mongoose.Schema({
     },
     occurrence: {
         type: String,
-        enum: ['Low', 'Medium', 'High'],
+        enum: ['Bajo', 'Medio', 'Alto'],
         default: null // Optional field
     },
     impactLevel: {
         type: String,
-        enum: ['Low', 'Medium', 'High'],
+        enum: ['Bajo', 'Medio', 'Alto'],
         default: null // Optional field
     },
     category: {
         type: String,
         required: [true, 'Category is required'],
-        enum: ['Physical', 'Chemical', 'Biological', 'Ergonomic', 'Electrical', 'Fire or Explosion']
+        enum: ['Físico', 'Químico', 'Biológico', 'Ergonómico', 'Eléctrico', 'Por incendio o explosión']
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,

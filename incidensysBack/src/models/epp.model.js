@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const eppSchema = new mongoose.Schema({
     type: {
         type: String,
-        enum: ['helmet', 'glasses', 'gloves', 'boots', 'masks', 'work clothes'],
+        enum: ['Casco', 'Gafas', 'Guantes', 'Botas', 'Mascarillas', 'Ropa de trabajo'],
         required: [true, 'Type is required']
     },
     description: {

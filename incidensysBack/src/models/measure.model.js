@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const measureSchema = new mongoose.Schema({
     type: {
         type: String,
-        enum: ['preventive', 'corrective'],
+        enum: ['Preventiva', 'Correctiva'],
         required: [true, 'Type is required']
     },
     description: {
