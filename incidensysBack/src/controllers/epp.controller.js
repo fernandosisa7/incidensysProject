@@ -2,7 +2,7 @@ import Epp from '../models/epp.model.js';
 
 export const getEpps = async (req, res) => {
     try {
-        const elements = await Epp.find({ user: req.user.id }).populate('user');
+        const elements = await Epp.find({ user: req.user.id }).populate('user').populate('employee_id');
         res.json(elements);
     } catch (error) {
         return res.status(500).json({ message: 'Something went wrong' });

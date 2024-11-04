@@ -3,32 +3,34 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
-import { useTasks } from '../../hooks/useTasks';
+import { useEpps } from '../../hooks/useEpps';
 
 const Epps = () => {
-    const [tasks, setTasks] = useState([]);
+    const [epps, setEpps] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
-    const { getTasks, deleteTask } = useTasks();
+    const { getEpps, deleteEpp } = useEpps();
     const navigate = useNavigate();
 
-    const filteredTasks = tasks.filter(task => {
-        const formattedDate = dayjs(task.date).utc().format('DD/MM/YYYY');
+    const filteredEpps = epps.filter(epp => {
+        const formattedDate = dayjs(epp.assignment_date).utc().format('DD/MM/YYYY');
         return (
-            task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            task.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            epp.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            epp.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            epp.employee_id?.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
             formattedDate.includes(searchTerm)
         );
     });
 
     const generateReport = () => {
-        const formattedTasks = tasks.map(task => ({
-            Titulo: task.title,
-            Descripción: task.description,
-            Fecha: dayjs(task.date).utc().format('DD/MM/YYYY'),
+        const formattedEpps = epps.map(epp => ({
+            Epp_tipo: epp.type,
+            Descripción: epp.description,
+            Fecha_asignación: dayjs(epp.assignment_date).utc().format('DD/MM/YYYY'),
+            Empleado: epp.employee_id?.name,
         }));
-        const worksheet = XLSX.utils.json_to_sheet(formattedTasks);
+        const worksheet = XLSX.utils.json_to_sheet(formattedEpps);
         const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, 'Tasks');
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'Epps');
         XLSX.writeFile(workbook, 'reporte_epps.xlsx');
     };
 
@@ -56,7 +58,7 @@ const Epps = () => {
             }
         });
         if (result.isConfirmed) {
-            // await deleteTask(id);
+            await deleteEpp(id);
             loadData();
             Swal.fire({
                 icon: 'success',
@@ -76,8 +78,8 @@ const Epps = () => {
     };
 
     const loadData = async () => {
-        const resTasks = await getTasks();
-        setTasks(resTasks);
+        const resEpps = await getEpps();
+        setEpps(resEpps);
     };
 
     useEffect(() => {
@@ -108,27 +110,27 @@ const Epps = () => {
             </div>
 
             <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4'>
-                {filteredTasks.map(task => (
-                    <div key={task._id} className="bg-zinc-800 w-full p-10 rounded-md flex">
+                {filteredEpps.map(epp => (
+                    <div key={epp._id} className="bg-zinc-800 w-full p-10 rounded-md flex">
                         <div className="flex-1">
                             <p className="text-white font-bold">Tipo de Epp:</p>
-                            <p className="text-slate-400">{task.title}</p>
+                            <p className="text-slate-400">{epp.type}</p>
                             <p className="text-white font-bold">Descripción:</p>
-                            <p className="text-slate-400">{task.description}</p>
+                            <p className="text-slate-400">{epp.description}</p>
                             <p className="text-white font-bold">Fecha de asignación:</p>
-                            <p className="text-slate-400">{dayjs(task.date).utc().format('DD/MM/YYYY')}</p>
+                            <p className="text-slate-400">{dayjs(epp.assignment_date).utc().format('DD/MM/YYYY')}</p>
                             <p className="text-white font-bold">Empleado:</p>
-                            <p className="text-slate-400">{task.description}</p>
+                            <p className="text-slate-400">{epp.employee_id?.name}</p>
                         </div>
                         <div className="flex flex-col justify-center">
                             <button
                                 className='bg-red-500 text-white px-4 py-2 rounded-md mb-2'
-                                onClick={() => { deleteElement(task._id); }}>
+                                onClick={() => { deleteElement(epp._id); }}>
                                 Eliminar
                             </button>
                             <button
                                 className='bg-blue-500 text-white px-4 py-2 rounded-md mb-2'
-                                onClick={() => navigate(`/epps/${task._id}`)}>
+                                onClick={() => navigate(`/epps/${epp._id}`)}>
                                 Editar
                             </button>
                         </div>
