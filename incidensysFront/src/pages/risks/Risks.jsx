@@ -3,32 +3,33 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
-import { useTasks } from '../../hooks/useTasks';
+import { useRisks } from '../../hooks/useRisks';
 
 const Risks = () => {
-    const [tasks, setTasks] = useState([]);
+    const [risks, setRisks] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
-    const { getTasks, deleteTask } = useTasks();
+    const { getRisks, deleteRisk } = useRisks();
     const navigate = useNavigate();
 
-    const filteredTasks = tasks.filter(task => {
-        const formattedDate = dayjs(task.date).utc().format('DD/MM/YYYY');
+    const filteredRisks = risks.filter(risk => {
         return (
-            task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            task.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            formattedDate.includes(searchTerm)
+            risk.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            risk.occurrence?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            risk.impactLevel?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            risk.category?.toLowerCase().includes(searchTerm.toLowerCase())
         );
     });
 
     const generateReport = () => {
-        const formattedTasks = tasks.map(task => ({
-            Titulo: task.title,
-            Descripción: task.description,
-            Fecha: dayjs(task.date).utc().format('DD/MM/YYYY'),
+        const formattedRisks = risks.map(risk => ({
+            Descripción: risk.description,
+            Ocurrencia: risk.occurrence,
+            Nivel_impacto: risk.impactLevel,
+            Categoria: risk.category,
         }));
-        const worksheet = XLSX.utils.json_to_sheet(formattedTasks);
+        const worksheet = XLSX.utils.json_to_sheet(formattedRisks);
         const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, 'Tasks');
+        XLSX.utils.book_append_sheet(workbook, worksheet, 'Risks');
         XLSX.writeFile(workbook, 'reporte_riesgos.xlsx');
     };
 
@@ -56,7 +57,7 @@ const Risks = () => {
             }
         });
         if (result.isConfirmed) {
-            // await deleteTask(id);
+            await deleteRisk(id);
             loadData();
             Swal.fire({
                 icon: 'success',
@@ -76,8 +77,8 @@ const Risks = () => {
     };
 
     const loadData = async () => {
-        const resTasks = await getTasks();
-        setTasks(resTasks);
+        const resRisks = await getRisks();
+        setRisks(resRisks);
     };
 
     useEffect(() => {
@@ -108,27 +109,27 @@ const Risks = () => {
             </div>
 
             <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4'>
-                {filteredTasks.map(task => (
-                    <div key={task._id} className="bg-zinc-800 w-full p-10 rounded-md flex">
+                {filteredRisks.map(risk => (
+                    <div key={risk._id} className="bg-zinc-800 w-full p-10 rounded-md flex">
                         <div className="flex-1">
                             <p className="text-white font-bold">Descripción del riesgo:</p>
-                            <p className="text-slate-400">{task.description}</p>
+                            <p className="text-slate-400">{risk.description}</p>
                             <p className="text-white font-bold">Ocurrencia:</p>
-                            <p className="text-slate-400">{task.description}</p>
+                            <p className="text-slate-400">{risk.occurrence}</p>
                             <p className="text-white font-bold">Nivel de impacto:</p>
-                            <p className="text-slate-400">{task.description}</p>
+                            <p className="text-slate-400">{risk.impactLevel}</p>
                             <p className="text-white font-bold">Categoría:</p>
-                            <p className="text-slate-400">{task.description}</p>
+                            <p className="text-slate-400">{risk.category}</p>
                         </div>
                         <div className="flex flex-col justify-center">
                             <button
                                 className='bg-red-500 text-white px-4 py-2 rounded-md mb-2'
-                                onClick={() => { deleteElement(task._id); }}>
+                                onClick={() => { deleteElement(risk._id); }}>
                                 Eliminar
                             </button>
                             <button
                                 className='bg-blue-500 text-white px-4 py-2 rounded-md mb-2'
-                                onClick={() => navigate(`/riesgos/${task._id}`)}>
+                                onClick={() => navigate(`/riesgos/${risk._id}`)}>
                                 Editar
                             </button>
                         </div>
