@@ -14,9 +14,13 @@ const eppSchema = new mongoose.Schema({
     assignment_date: {
         type: Date,
         validate: {
-            validator: (v) => v instanceof Date && !isNaN(v),
-            message: 'Assignment date must be a valid date'
-        }
+            validator: function(v) {
+                // Allow `null` or `undefined`, or validate as a valid date if provided
+                return v === null || (v instanceof Date && !isNaN(v));
+            },
+            message: 'Assignment date must be a valid date or null'
+        },
+        default: null  // If not provided, default to null
     },
     employee_id: {
         type: mongoose.Schema.Types.ObjectId,

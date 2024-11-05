@@ -19,6 +19,7 @@ const MeasureForm = () => {
     const onSubmit = handleSubmit(async (data) => {
         const dataValid = {
             ...data,
+            riskId: data.riskId ? data.riskId : null,
         };
         try {
             if (params.id) {

@@ -19,7 +19,8 @@ const EppForm = () => {
     const onSubmit = handleSubmit(async (data) => {
         const dataValid = {
             ...data,
-            date: data.date ? dayjs.utc(data.date).format() : dayjs.utc().format()
+            assignment_date: data.assignment_date ? dayjs.utc(data.assignment_date).format() : null,
+            employee_id: data.employee_id ? data.employee_id: null,
         };
         try {
             if (params.id) {
