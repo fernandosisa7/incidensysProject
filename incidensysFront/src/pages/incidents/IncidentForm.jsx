@@ -23,6 +23,7 @@ const IncidentForm = () => {
         const dataValid = {
             ...data,
             incidentDate: dayjs(data.incidentDate).utc().format('YYYY-MM-DD'),
+            riskId: data.riskId ? data.riskId : null,
         };
         try {
             if (params.id) {
