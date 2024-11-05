@@ -41,7 +41,7 @@ const Navbar = () => {
           <li><a href="/riesgos" className="block py-2 px-4 bg-green-600 hover:bg-green-900">Riesgos</a></li>
           <li><a href="/medidas" className="block py-2 px-4 bg-green-600 hover:bg-green-900">Medidas</a></li>
           <li><a href="/epps" className="block py-2 px-4 bg-green-600 hover:bg-green-900">EPPS</a></li>
-          <li><a href="/examples" className="block py-2 px-4 bg-green-600 hover:bg-green-900">Examples</a></li>
+          {/* <li><a href="/examples" className="block py-2 px-4 bg-green-600 hover:bg-green-900">Examples</a></li> */}
           <li><a onClick={() => logout()} className="block py-2 px-4 bg-red-500 hover:bg-red-800">Salir</a></li>
         </> : <>
           <li><a href="/login" className="block py-2 px-4 bg-green-600 hover:bg-green-900">Ingresar</a></li>
