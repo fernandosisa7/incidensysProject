@@ -1,27 +1,30 @@
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { useTasks } from '../../hooks/useTasks';
+import { useEmployees } from '../../hooks/useEmployees';
+import { useEpps } from '../../hooks/useEpps';
 dayjs.extend(utc)
 
 const EppForm = () => {
-    const { getTasks, loading, error, getTask, createTask, updateTask, deleteTask } = useTasks();
+    const { getEpp, createEpp, updateEpp } = useEpps();
+    const { getEmployees } = useEmployees();
+    const [employees, setEmployees] = useState([]);
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
     const navigate = useNavigate();
     const params = useParams();
 
     const onSubmit = handleSubmit(async (data) => {
-        // const dataValid = {
-        //     ...data,
-        //     date: data.date ? dayjs.utc(data.date).format() : dayjs.utc().format()
-        // };
+        const dataValid = {
+            ...data,
+            date: data.date ? dayjs.utc(data.date).format() : dayjs.utc().format()
+        };
         console.log('data', data);
         try {
             if (params.id) {
-                // await updateTask(params.id, dataValid);
+                await updateEpp(params.id, dataValid);
                 Swal.fire({
                     icon: 'success',
                     title: 'Elemento actualizado',
@@ -37,7 +40,7 @@ const EppForm = () => {
                     }
                 });
             } else {
-                // await createTask(dataValid);
+                await createEpp(dataValid);
                 Swal.fire({
                     icon: 'success',
                     title: 'Elemento creado',
@@ -72,17 +75,21 @@ const EppForm = () => {
         }
     });
 
-    const loadTask = async () => {
+    const loadData = async () => {
+        const resEmployees = await getEmployees();
+        setEmployees(resEmployees);
         if (params.id) {
-            const task = await getTask(params.id);
-            setValue('title', task.title);
-            setValue('description', task.description);
-            setValue('date', dayjs(task.date).utc().format('YYYY-MM-DD'));
+            const epp = await getEpp(params.id);
+            debugger
+            setValue('type', epp.type);
+            setValue('description', epp.description);
+            setValue('assignment_date', dayjs(epp.assignment_date).utc().format('YYYY-MM-DD'));
+            setValue('employee_id', epp.employee_id?._id);
         }
     };
 
     useEffect(() => {
-        loadTask();
+        loadData();
     }, []);
 
     return (
@@ -90,21 +97,21 @@ const EppForm = () => {
             <div className='bg-zinc-800 max-w-md w-full p-8 rounded-md '>
                 <p className="text-white font-bold text-3xl mb-6 text-center">{params.id ? 'Editar Epp' : 'Crear Epp'}</p>
                 <form onSubmit={onSubmit}>
-                    <label htmlFor="eppType">Tipo de Epp</label>
+                    <label htmlFor="type">Tipo de Epp</label>
                     <select
-                        {...register('eppType', { required: 'Campo obligatorio' })}
+                        {...register('type', { required: 'Campo obligatorio' })}
                         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
                         autoFocus
                     >
                         <option value="" disabled selected>Selecciona un tipo</option>
-                        <option value="casco">casco</option>
-                        <option value="gafas">gafas</option>
-                        <option value="guantes">guantes</option>
-                        <option value="botas">botas</option>
-                        <option value="mascarillas">mascarillas</option>
-                        <option value="ropa">ropa de trabajo</option>
+                        <option value="Casco">Casco</option>
+                        <option value="Gafas">Gafas</option>
+                        <option value="Guantes">Guantes</option>
+                        <option value="Botass">Botass</option>
+                        <option value="Mascarillas">Mascarillas</option>
+                        <option value="Ropa de trabajo">Ropa de trabajo</option>
                     </select>
-                    {errors.eppType && <p className="text-red-500">{errors.eppType.message}</p>}
+                    {errors.type && <p className="text-red-500">{errors.type.message}</p>}
 
 
                     <label htmlFor="description">Descripción</label>
@@ -114,24 +121,26 @@ const EppForm = () => {
                     ></textarea>
                     {errors.description && <p className="text-red-500">{errors.description.message}</p>}
 
-                    <label htmlFor="date">Fecha de asignación</label>
+                    <label htmlFor="assignment_date">Fecha de asignación</label>
                     <input type='date'
-                        {...register('date')}
+                        {...register('assignment_date')}
                         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
                     />
 
-                    <label htmlFor="employee">Empleado</label>
+                    <label htmlFor="employee_id">Empleado</label>
                     <select
-                        {...register('employee')}
+                        {...register('employee_id')}
                         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
                         autoFocus
                     >
                         <option value="" disabled selected>Selecciona un empleado</option>
-                        <option value="opcion1">opcion1</option>
-                        <option value="opcion2">opcion2</option>
-                        <option value="opcion3">opcion3</option>
+                        {employees.map(employee => (
+                            <option key={employee._id} value={employee._id}>
+                                {employee.name}
+                            </option>
+                        ))}
                     </select>
-                    {errors.employee && <p className="text-red-500">{errors.employee.message}</p>}
+                    {errors.employee_id && <p className="text-red-500">{errors.employee_id.message}</p>}
 
                     <button className='bg-blue-500 w-full py-2 mt-2 rounded-md'>
                         Guardar
