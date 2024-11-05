@@ -21,7 +21,6 @@ const EppForm = () => {
             ...data,
             date: data.date ? dayjs.utc(data.date).format() : dayjs.utc().format()
         };
-        console.log('data', data);
         try {
             if (params.id) {
                 await updateEpp(params.id, dataValid);
@@ -80,7 +79,6 @@ const EppForm = () => {
         setEmployees(resEmployees);
         if (params.id) {
             const epp = await getEpp(params.id);
-            debugger
             setValue('type', epp.type);
             setValue('description', epp.description);
             setValue('assignment_date', dayjs(epp.assignment_date).utc().format('YYYY-MM-DD'));

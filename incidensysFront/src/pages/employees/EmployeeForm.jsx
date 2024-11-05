@@ -19,10 +19,8 @@ const EmployeeForm = () => {
             citizenshipId: Number(data.citizenshipId),
             phone: Number(data.phone),
             emergencyPhone: Number(data.emergencyPhone),
-            date: data.date ? dayjs(employee.hireDate).utc().format('YYYY-MM-DD') : null
+            hireDate: data.hireDate ? dayjs(employee.hireDate).utc().format('YYYY-MM-DD') : null
         };
-        debugger
-        console.log('data', data);
         try {
             if (params.id) {
                 await updateEmployee(params.id, dataValid);

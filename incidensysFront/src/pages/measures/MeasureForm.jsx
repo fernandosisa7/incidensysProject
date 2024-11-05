@@ -20,7 +20,6 @@ const MeasureForm = () => {
         const dataValid = {
             ...data,
         };
-        console.log('data', data);
         try {
             if (params.id) {
                 await updateMeasure(params.id, dataValid);

@@ -24,7 +24,6 @@ const IncidentForm = () => {
             ...data,
             incidentDate: dayjs(data.incidentDate).utc().format('YYYY-MM-DD'),
         };
-        console.log('data', data);
         try {
             if (params.id) {
                 await updateIncident(params.id, dataValid);

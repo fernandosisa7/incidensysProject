@@ -28,9 +28,10 @@ const employeeSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
         validate: {
-            validator: (v) => v instanceof Date && !isNaN(v),
-            message: 'Hire date must be a valid date'
-        }
+            validator: (v) => v === null || (v instanceof Date && !isNaN(v)),
+            message: 'Hire date must be a valid date or null'
+        },
+        required: false // Permite que el valor sea null
     },
     address: {
         type: String,
