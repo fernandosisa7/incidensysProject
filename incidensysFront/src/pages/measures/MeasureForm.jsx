@@ -1,27 +1,29 @@
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import { useTasks } from '../../hooks/useTasks';
+import { useMeasures } from '../../hooks/useMeasures';
+import { useRisks } from '../../hooks/useRisks';
 dayjs.extend(utc)
 
 const MeasureForm = () => {
-    const { getTasks, loading, error, getTask, createTask, updateTask, deleteTask } = useTasks();
+    const { getMeasure, createMeasure, updateMeasure } = useMeasures();
+    const { getRisks } = useRisks();
+    const [risks, setRisks] = useState([]);
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
     const navigate = useNavigate();
     const params = useParams();
 
     const onSubmit = handleSubmit(async (data) => {
-        // const dataValid = {
-        //     ...data,
-        //     date: data.date ? dayjs.utc(data.date).format() : dayjs.utc().format()
-        // };
+        const dataValid = {
+            ...data,
+        };
         console.log('data', data);
         try {
             if (params.id) {
-                // await updateTask(params.id, dataValid);
+                await updateMeasure(params.id, dataValid);
                 Swal.fire({
                     icon: 'success',
                     title: 'Elemento actualizado',
@@ -37,7 +39,7 @@ const MeasureForm = () => {
                     }
                 });
             } else {
-                // await createTask(dataValid);
+                await createMeasure(dataValid);
                 Swal.fire({
                     icon: 'success',
                     title: 'Elemento creado',
@@ -72,17 +74,20 @@ const MeasureForm = () => {
         }
     });
 
-    const loadTask = async () => {
+    const loadData = async () => {
+        const resRisks = await getRisks();
+        setRisks(resRisks);
         if (params.id) {
-            const task = await getTask(params.id);
-            setValue('title', task.title);
-            setValue('description', task.description);
-            setValue('date', dayjs(task.date).utc().format('YYYY-MM-DD'));
+            const measure = await getMeasure(params.id);
+            setValue('type', measure.type);
+            setValue('description', measure.description);
+            setValue('riskId', String(measure.riskId?._id));
         }
-    };
+
+    }
 
     useEffect(() => {
-        loadTask();
+        loadData();
     }, []);
 
     return (
@@ -90,17 +95,17 @@ const MeasureForm = () => {
             <div className='bg-zinc-800 max-w-md w-full p-8 rounded-md '>
                 <p className="text-white font-bold text-3xl mb-6 text-center">{params.id ? 'Editar Medida' : 'Crear Medida'}</p>
                 <form onSubmit={onSubmit}>
-                    <label htmlFor="measureType">Tipo de medida</label>
+                    <label htmlFor="type">Tipo de medida</label>
                     <select
-                        {...register('measureType', { required: 'Campo obligatorio' })}
+                        {...register('type', { required: 'Campo obligatorio' })}
                         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
                         autoFocus
                     >
                         <option value="" disabled selected>Selecciona un tipo</option>
-                        <option value="preventiva">Preventiva</option>
-                        <option value="correctiva">Correctiva</option>
+                        <option value="Preventiva">Preventiva</option>
+                        <option value="Correctiva">Correctiva</option>
                     </select>
-                    {errors.measureType && <p className="text-red-500">{errors.measureType.message}</p>}
+                    {errors.type && <p className="text-red-500">{errors.type.message}</p>}
 
 
                     <label htmlFor="description">Descripción</label>
@@ -110,17 +115,19 @@ const MeasureForm = () => {
                     ></textarea>
                     {errors.description && <p className="text-red-500">{errors.description.message}</p>}
 
-                    <label htmlFor="risk">Riesgo</label>
+                    <label htmlFor="riskId">Riesgo</label>
                     <select
-                        {...register('risk')}
+                        {...register('riskId')}
                         className='w-full bg-zinc-700 text-white px-4 py-2 rounded-md my-2'
                     >
                         <option value="" disabled selected>Selecciona un riesgo</option>
-                        <option value="opcion1">opcion1</option>
-                        <option value="opcion2">opcion2</option>
-                        <option value="opcion3">opcion3</option>
+                        {risks.map(risk => (
+                            <option key={risk._id} value={risk._id}>
+                                {risk.description}
+                            </option>
+                        ))}
                     </select>
-                    {errors.risk && <p className="text-red-500">{errors.risk.message}</p>}
+                    {errors.riskId && <p className="text-red-500">{errors.riskId.message}</p>}
 
                     <button className='bg-blue-500 w-full py-2 mt-2 rounded-md'>
                         Guardar

@@ -11,8 +11,8 @@ export const getMeasures = async (req, res) => {
 
 export const createMeasure = async (req, res) => {
     try {
-        const { type, description, date, riskId } = req.body;
-        const newElement = new Measure({ type, description, date, riskId, user: req.user.id });
+        const { type, description, riskId } = req.body;
+        const newElement = new Measure({ type, description, riskId, user: req.user.id });
         const savedElement = await newElement.save();
         res.status(201).json(savedElement);
     } catch (error) {
@@ -25,7 +25,7 @@ export const createMeasure = async (req, res) => {
 
 export const getMeasure = async (req, res) => {
     try {
-        const element = await Measure.findById(req.params.id).populate('user');
+        const element = await Measure.findById(req.params.id).populate('user').populate('riskId');
         if (!element) return res.status(404).json({ message: 'Measure not found' });
         res.json(element);
     } catch (error) {

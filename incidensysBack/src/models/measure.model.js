@@ -16,14 +16,6 @@ const measureSchema = new mongoose.Schema({
         ref: 'Risk',
         required: false
     },
-    date: {
-        type: Date,
-        default: Date.now,
-        validate: {
-            validator: (v) => v instanceof Date && !isNaN(v),
-            message: 'Date must be a valid date'
-        }
-    },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
