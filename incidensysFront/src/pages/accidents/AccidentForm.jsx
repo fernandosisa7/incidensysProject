@@ -22,7 +22,7 @@ const AccidentForm = () => {
     const onSubmit = handleSubmit(async (data) => {
         const dataValid = {
             ...data,
-            incidentDate: dayjs(data.incidentDate).utc().format('YYYY-MM-DD'),
+            accidentDate: dayjs(data.accidentDate).utc().format('YYYY-MM-DD'),
             riskId: data.riskId ? data.riskId : null,
         };
         try {
