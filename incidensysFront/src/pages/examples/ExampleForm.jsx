@@ -71,7 +71,7 @@ const ExampleForm = () => {
         }
     });
 
-    const loadTask = async () => {
+    const loadData = async () => {
         if (params.id) {
             const task = await getTask(params.id);
             setValue('title', task.title);
@@ -81,7 +81,7 @@ const ExampleForm = () => {
     };
 
     useEffect(() => {
-        loadTask();
+        loadData();
     }, []);
 
     return (

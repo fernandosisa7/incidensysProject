@@ -33,7 +33,7 @@ export const createIncident = async (req, res) => {
 
 export const getIncident = async (req, res) => {
     try {
-        const element = await Incident.findById(req.params.id).populate('user');
+        const element = await Incident.findById(req.params.id).populate('user').populate('employeeId').populate('riskId');
         if (!element) return res.status(404).json({ message: 'Incident not found' });
         res.json(element);
     } catch (error) {
