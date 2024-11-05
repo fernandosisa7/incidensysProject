@@ -107,7 +107,7 @@ const EppForm = () => {
                         <option value="Casco">Casco</option>
                         <option value="Gafas">Gafas</option>
                         <option value="Guantes">Guantes</option>
-                        <option value="Botass">Botass</option>
+                        <option value="Botas">Botas</option>
                         <option value="Mascarillas">Mascarillas</option>
                         <option value="Ropa de trabajo">Ropa de trabajo</option>
                     </select>

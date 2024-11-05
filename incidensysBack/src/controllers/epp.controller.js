@@ -25,7 +25,7 @@ export const createEpp = async (req, res) => {
 
 export const getEpp = async (req, res) => {
     try {
-        const element = await Epp.findById(req.params.id).populate('user').populate('riskId');
+        const element = await Epp.findById(req.params.id).populate('user').populate('employee_id');
         if (!element) return res.status(404).json({ message: 'Epp not found' });
         res.json(element);
     } catch (error) {
