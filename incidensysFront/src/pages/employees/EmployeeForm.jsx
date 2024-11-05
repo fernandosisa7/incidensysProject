@@ -19,7 +19,7 @@ const EmployeeForm = () => {
             citizenshipId: Number(data.citizenshipId),
             phone: Number(data.phone),
             emergencyPhone: Number(data.emergencyPhone),
-            hireDate: data.hireDate ? dayjs(employee.hireDate).utc().format('YYYY-MM-DD') : null
+            hireDate: data.hireDate ? dayjs(data.hireDate).utc().format('YYYY-MM-DD') : null
         };
         try {
             if (params.id) {
