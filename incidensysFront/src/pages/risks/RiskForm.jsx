@@ -16,6 +16,8 @@ const RiskForm = () => {
     const onSubmit = handleSubmit(async (data) => {
         const dataValid = {
             ...data,
+            occurrence: data.occurrence ? data.occurrence: null,
+            impactLevel: data.impactLevel ? data.impactLevel: null,
         };
         try {
             if (params.id) {
