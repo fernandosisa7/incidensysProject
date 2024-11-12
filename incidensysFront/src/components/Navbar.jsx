@@ -36,9 +36,9 @@ const Navbar = () => {
       >
         {isAuthenticated ? <>
           <li><a href="/empleados" className="block py-2 px-4 bg-green-600 hover:bg-green-900">Empleados</a></li>
+          <li><a href="/riesgos" className="block py-2 px-4 bg-green-600 hover:bg-green-900">Riesgos</a></li>
           <li><a href="/accidentes" className="block py-2 px-4 bg-green-600 hover:bg-green-900">Accidentes</a></li>
           <li><a href="/incidentes" className="block py-2 px-4 bg-green-600 hover:bg-green-900">Incidentes</a></li>
-          <li><a href="/riesgos" className="block py-2 px-4 bg-green-600 hover:bg-green-900">Riesgos</a></li>
           <li><a href="/medidas" className="block py-2 px-4 bg-green-600 hover:bg-green-900">Medidas</a></li>
           <li><a href="/epps" className="block py-2 px-4 bg-green-600 hover:bg-green-900">EPPS</a></li>
           {/* <li><a href="/examples" className="block py-2 px-4 bg-green-600 hover:bg-green-900">Examples</a></li> */}

@@ -67,7 +67,5 @@
 
 se subio el repositorio a git 
 
-u:      fer23@gmail.com
-p:      Admin$23
 u:      rayod@gmail.com
 p:      Admin$23
