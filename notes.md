@@ -69,3 +69,7 @@ se subio el repositorio a git
 
 u:      rayod@gmail.com
 p:      Admin$23
+
+
+u:      empresa2@gmail.com
+p:      Admin$23

@@ -15,20 +15,20 @@ const LoginPage = () => {
 
     const onSubmit = handleSubmit(data => {
         signin(data);
-        Swal.fire({
-            icon: 'success',
-            title: 'Ingreso exitoso',
-            text: 'Has iniciado sesión correctamente.',
-            customClass: {
-                confirmButton: 'bg-blue-500 text-white',
-            },
-            buttonsStyling: false,
-            willOpen: () => {
-                const confirmButton = Swal.getConfirmButton();
-                confirmButton.style.padding = '10px 20px';
-                confirmButton.style.borderRadius = '5px';
-            }
-        });
+        // Swal.fire({
+        //     icon: 'success',
+        //     title: 'Ingreso exitoso',
+        //     text: 'Has iniciado sesión correctamente.',
+        //     customClass: {
+        //         confirmButton: 'bg-blue-500 text-white',
+        //     },
+        //     buttonsStyling: false,
+        //     willOpen: () => {
+        //         const confirmButton = Swal.getConfirmButton();
+        //         confirmButton.style.padding = '10px 20px';
+        //         confirmButton.style.borderRadius = '5px';
+        //     }
+        // });
     });
 
     useEffect(() => {

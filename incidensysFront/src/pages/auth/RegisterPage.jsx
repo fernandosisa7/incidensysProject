@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContex';
-import Swal from 'sweetalert2';
 
 const RegisterPage = () => {
     const {
@@ -19,20 +18,20 @@ const RegisterPage = () => {
 
     const onSubmit = handleSubmit(async (values) => {
         signup(values);
-        Swal.fire({
-            icon: 'success',
-            title: 'Registrado exitosamente',
-            text: 'Te has registrado correctamente.',
-            customClass: {
-                confirmButton: 'bg-blue-500 text-white',
-            },
-            buttonsStyling: false,
-            willOpen: () => {
-                const confirmButton = Swal.getConfirmButton();
-                confirmButton.style.padding = '10px 20px';
-                confirmButton.style.borderRadius = '5px';
-            }
-        });
+        // Swal.fire({
+        //     icon: 'success',
+        //     title: 'Registrado exitosamente',
+        //     text: 'Te has registrado correctamente.',
+        //     customClass: {
+        //         confirmButton: 'bg-blue-500 text-white',
+        //     },
+        //     buttonsStyling: false,
+        //     willOpen: () => {
+        //         const confirmButton = Swal.getConfirmButton();
+        //         confirmButton.style.padding = '10px 20px';
+        //         confirmButton.style.borderRadius = '5px';
+        //     }
+        // });
     });
 
     return (
